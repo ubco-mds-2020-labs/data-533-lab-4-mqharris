@@ -1,12 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-class plotter():
+class Plotter():
 
-    def __init__(self, data):
+    def __init__(self, data, plot_title=None, label_names=None):
         self.data = data
-        self.plot_title = None
-        self.label_names = None
+        self.plot_title = plot_title
+        self.label_names = label_names
 
     def add_title(self, title):
         self.plot_title = title
