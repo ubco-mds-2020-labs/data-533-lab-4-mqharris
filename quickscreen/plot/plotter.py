@@ -13,4 +13,7 @@ class Plotter():
 
     def add_label_names(self, x_label, y_label):
         self.label_names = (x_label, y_label)
+
+    def show_plot(self):
+        plt.show()
     
