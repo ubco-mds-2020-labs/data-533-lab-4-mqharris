@@ -36,3 +36,4 @@ if __name__ == "__main__":
     # test_scatterplot()
     # test_histogram()
     test_confusion()
+    
