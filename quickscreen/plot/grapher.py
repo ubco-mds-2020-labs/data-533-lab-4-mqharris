@@ -20,9 +20,9 @@ class ScatterPlot(Plotter):
         c2 = self.data[col2]
         plt.plot(c1, c2, "o")
 
-class ConfusionPlot(Plotter):
+class ScatterMatrix(Plotter):
     def __init__(self, data):
         super().__init__(data)
 
-    def confusion(self):
+    def scatter_matrix(self):
         sns.pairplot(self.data, diag_kws={'bins': 10})

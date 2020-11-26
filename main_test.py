@@ -28,12 +28,11 @@ if __name__ == "__main__":
     def test_confusion():
         # this doesn't display nicely on my machine
         df = pd.read_csv("./data/CarPrice.csv")
-        d = ConfusionPlot(data=df)
-        d.confusion()
+        d = ScatterMatrix(data=df)
+        d.scatter_matrix()
         d.save_plot()
 
 
     # test_scatterplot()
     # test_histogram()
     test_confusion()
-    

@@ -28,7 +28,7 @@ class Plotter():
                 plt.title(self.plot_title)
         plt.show()
 
-    def save_plot(self, save_loc=".", file_name=None):
+    def save_plot(self, save_loc="", file_name=None):
         # currently hard coded to save only as jpg
         # currently only hard coded save in the root dir
         if self.label_names:
