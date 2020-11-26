@@ -1,5 +1,6 @@
 # summary_classes.py
 import pandas as pd
+import numpy as np
 
 
 class df_info:
@@ -14,10 +15,22 @@ class df_info:
         self.columns = self.df.shape[0]
 
     def total_max(self):
-        return self.df.max().max()
+        try:
+            return self.df.max().max()
+        except:
+            return np.nan
 
     def total_min(self):
-        return self.df.min().min()
+        try:
+            return self.df.max().max()
+        except:
+            return np.nan
+
+    def total_mean(self):
+        try:
+            return self.df.mean(numeric_only=True).mean(numeric_only=True)
+        except:
+            return np.nan
 
     def total_missing(self):
         return self.df.isnull().sum().sum()
@@ -38,8 +51,10 @@ class stats(df_info):
     def __init__(self, df, type="columns"):
         df_info.__init__(self, df, type)
         if self.type == "columns":
-            self.sub_max = df.max()
-            self.sub_min = df.min()
+            self.sub_max = df.max(numeric_only=True)
+            self.sub_min = df.min(numeric_only=True)
+            self.sub_mean = df.mean(numeric_only=True)
         else:
-            self.sub_max = df.max(axis=1)
-            self.sub_min = df.min(axis=1)
+            self.sub_max = df.max(axis=1, numeric_only=True)
+            self.sub_min = df.min(axis=1, numeric_only=True)
+            self.sub_mean = df.mean(axis=1, numeric_only=True)

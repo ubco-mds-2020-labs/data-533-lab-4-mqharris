@@ -1,9 +1,9 @@
 from quickscreen.plot.plotter import Plotter
 from quickscreen.plot.grapher import *
+import quickscreen.summary.summary_stats as summary
 import pandas as pd
 
 if __name__ == "__main__":
-    
 
     def test_histogram():
         df = pd.read_csv("./data/CarPrice.csv")
@@ -32,7 +32,30 @@ if __name__ == "__main__":
         d.scatter_matrix()
         d.save_plot()
 
+    def test_simple_summary():
+        df = pd.read_csv("./data/CarPrice.csv")
+        print(summary.simple_summary(df))
+
+    def test_missing_summary():
+        df = pd.read_csv("./data/CarPrice.csv")
+        print(summary.missing_summary(df))
+        print(summary.missing_summary(df, type="rows"))
+
+    def test_stats_summary():
+        df = pd.read_csv("./data/CarPrice.csv")
+        print(summary.stats_summary(df))
+        print(summary.stats_summary(df, type="rows"))
+
+    def test_all_summary():
+        df = pd.read_csv("./data/CarPrice.csv")
+        print(summary.all_summary(df))
+        print(summary.all_summary(df, type="rows"))
 
     # test_scatterplot()
     # test_histogram()
-    test_confusion()
+    # test_confusion()
+
+    test_simple_summary()
+    test_missing_summary()
+    test_stats_summary()
+    test_all_summary()
