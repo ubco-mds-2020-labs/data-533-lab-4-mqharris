@@ -1,9 +1,10 @@
+# summary_stats.py
 import pandas as pd
 
 from summary_classes import *
 
 
-def missing_summary(df, assess="columns"):
+def missing_summary(df, type="columns"):
     data = missing(df, assess)
     df_out = {
         "count_missing": data.count_missing,
@@ -13,14 +14,14 @@ def missing_summary(df, assess="columns"):
     return pd.concat(df_out, axis=1)
 
 
-def stats_summary(df, assess="columns"):
+def stats_summary(df, type="columns"):
     data = stats(df, assess)
     df_out = {"max": data.sub_max, "min": data.sub_min}
 
     return pd.concat(df_out, axis=1)
 
 
-def all_summary(df, assess="columns"):
+def all_summary(df, type="columns"):
     return pd.concat([stats_summary(df, assess), missing_summary(df, assess)], axis=1)
 
 
