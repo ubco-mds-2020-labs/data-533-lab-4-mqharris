@@ -28,10 +28,10 @@ def simple_summary(df):
     data = df_info(df)
     output_labels = ["df_max", "df_min", "row_count", "column_count", "total_missing"]
     output_values = [
-        data.total_max,
-        data.total_min,
+        data.total_max(),
+        data.total_min(),
         data.rows,
         data.columns,
-        data.total_missing,
+        data.total_missing(),
     ]
     return pd.DataFrame({"values": output_values}, index=output_labels)

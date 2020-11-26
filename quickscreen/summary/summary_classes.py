@@ -12,9 +12,15 @@ class df_info:
         self.type = type
         self.rows = self.df.shape[0]
         self.columns = self.df.shape[0]
-        self.total_max = df.max().max()
-        self.total_min = df.min().min()
-        self.total_missing = df.isnull().sum().sum()
+
+    def total_max(self):
+        return self.df.max().max()
+
+    def total_min(self):
+        return self.df.min().min()
+
+    def total_missing(self):
+        return self.df.isnull().sum().sum()
 
 
 class missing(df_info):
