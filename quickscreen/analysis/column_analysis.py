@@ -36,8 +36,11 @@ class Placeholder:
             column_name=str(self.data.columns[column])
         else:
             column_name=column
-        out = {"Sum of "+ column_name:self.sum_column(column), "Average of "+ column_name:self.avg_column(column), "Standard deviation of "+ column_name : self.sd_column(column)}
+        out = {"Sum of "+ column_name:self.sum_column(column), "Average of "+ column_name:self.avg_column(column), "Standard deviation of "+ column_name:self.sd_column(column)}
         return out
+
+    def __add__(self, other):
+        return self.data.append(other)
 
 
         
