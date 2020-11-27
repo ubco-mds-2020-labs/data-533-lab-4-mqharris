@@ -55,7 +55,7 @@ if __name__ == "__main__":
     # test_histogram()
     # test_confusion()
 
-    test_simple_summary()
-    test_missing_summary()
-    test_stats_summary()
-    test_all_summary()
+    # test_simple_summary()
+    # test_missing_summary()
+    # test_stats_summary()
+    # test_all_summary()

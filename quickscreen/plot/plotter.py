@@ -41,12 +41,3 @@ class Plotter():
             str_date = str(x.date())+str(x.time())
             file_name = type(self).__name__ +"_"+ str_date
         plt.savefig(save_loc+file_name+".jpg")
-
-    def get_numeric_columns(self):
-        # Not currently used
-        numeric_columns = []
-        for col in self.data.columns:
-            if is_numeric_dtype(self.data[col]):
-                numeric_columns.append(col)
-        return numeric_columns
-
