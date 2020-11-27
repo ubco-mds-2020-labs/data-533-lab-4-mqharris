@@ -2,7 +2,7 @@
 import pandas as pd
 
 
-class Data_edit:
+class DataEdit:
 
     def __init__(self, data):
         self.data = data
@@ -17,22 +17,22 @@ class Data_edit:
 
     def __add__(self, other):
         assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
-        return Data_edit(self.data.append(other, ignore_index=True))
+        return DataEdit(self.data.append(other, ignore_index=True))
     
     def __sub__(self, other):
         assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
         temp = pd.concat([self.data, other], axis=0, join='outer')
         common = pd.concat([self.data, temp],axis=0, join='inner', ignore_index=True).dropna(axis=0)
-        return Data_edit(common)
+        return DataEdit(common)
 
-    def rmduplicates(self):
-        return Data_edit(self.data.drop_duplicates())
+    def rm_duplicates(self):
+        return DataEdit(self.data.drop_duplicates())
 
-    def rmnan(self):
-        return Data_edit(self.data.dropna(axis=0))
+    def rm_nan(self):
+        return DataEdit(self.data.dropna(axis=0))
     
     def quick_clean(self):
-        return Data_edit(self.data.drop_duplicates().dropna(axis=0))
+        return DataEdit(self.data.drop_duplicates().dropna(axis=0))
 
 
 
