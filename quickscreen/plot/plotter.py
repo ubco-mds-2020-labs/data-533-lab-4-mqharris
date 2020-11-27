@@ -1,4 +1,5 @@
 import datetime
+from sys import platform
 
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
@@ -30,7 +31,14 @@ class Plotter():
 
     def save_plot(self, save_loc="", file_name=None):
         # currently hard coded to save only as jpg
-        # currently only hard coded save in the root dir
+        # currently only hard coded save in existent dirs
+
+        # doesnt work on windows
+        # untested on linux
+        if platform != "darwin":
+            raise Exception("Can only save plot on MacOS")
+
+
         if self.label_names:
                 plt.xlabel(self.label_names[0])
                 plt.ylabel(self.label_names[1])
