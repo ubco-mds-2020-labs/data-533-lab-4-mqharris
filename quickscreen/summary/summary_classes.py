@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 
-class df_info:
+class Df_Info:
     def __init__(self, df, type="columns"):
         if not isinstance(df, pd.DataFrame):
             raise Exception("Input must be a pandas DataFrame")
@@ -36,7 +36,7 @@ class df_info:
         return self.df.isnull().sum().sum()
 
 
-class missing(df_info):
+class Missing(Df_Info):
     def __init__(self, df, type="columns"):
         df_info.__init__(self, df, type)
         if self.type == "columns":
@@ -47,9 +47,9 @@ class missing(df_info):
             self.percent_missing = self.count_missing / self.rows
 
 
-class stats(df_info):
+class Stats(Df_Info):
     def __init__(self, df, type="columns"):
-        df_info.__init__(self, df, type)
+        Df_Info.__init__(self, df, type)
         if self.type == "columns":
             self.sub_max = df.max(numeric_only=True)
             self.sub_min = df.min(numeric_only=True)

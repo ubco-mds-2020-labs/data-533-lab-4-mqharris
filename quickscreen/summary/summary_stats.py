@@ -5,7 +5,7 @@ from quickscreen.summary.summary_classes import *
 
 
 def missing_summary(df, type="columns"):
-    data = missing(df, type)
+    data = Missing(df, type)
     df_out = {
         "count_missing": data.count_missing,
         "percent_missing": data.percent_missing,
@@ -15,7 +15,7 @@ def missing_summary(df, type="columns"):
 
 
 def stats_summary(df, type="columns"):
-    data = stats(df, type)
+    data = Stats(df, type)
     df_out = {"max": data.sub_max, "min": data.sub_min, "mean": data.sub_mean}
 
     return pd.concat(df_out, axis=1)
@@ -26,7 +26,7 @@ def all_summary(df, type="columns"):
 
 
 def simple_summary(df):
-    data = df_info(df)
+    data = Df_Info(df)
     output_labels = [
         "df_max",
         "df_min",
