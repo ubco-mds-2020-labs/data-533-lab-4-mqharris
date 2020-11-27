@@ -1,13 +1,13 @@
-import column_analysis as ca
+import datafill as dfl
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
 
-class lm(ca.Placeholder):
+class lm(dfl.Data_edit):
     def __init__(self, data):
-        ca.Placeholder.__init__(self, data)
+        dfl.Data_edit.__init__(self, data)
 
     def singlelinear(self, predictor, estimator):
         assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
@@ -25,7 +25,7 @@ class lm(ca.Placeholder):
         x = self.data[estimator].to_numpy().reshape(-1,1)
         y = self.data[predictor].to_numpy().reshape(-1,1)
         prediction = self.singlelinear(predictor, estimator)
-        
+
         plt.scatter(x, y)
         plt.plot(x, prediction, color='red')
         plt.title("Linear Regression")
