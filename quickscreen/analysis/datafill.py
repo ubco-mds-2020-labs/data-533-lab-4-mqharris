@@ -16,11 +16,11 @@ class DataEdit:
         return self.data.dtypes[column]
 
     def __add__(self, other):
-        assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
+        assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
         return DataEdit(self.data.append(other, ignore_index=True))
     
     def __sub__(self, other):
-        assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
+        assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
         temp = pd.concat([self.data, other], axis=0, join='outer')
         common = pd.concat([self.data, temp],axis=0, join='inner', ignore_index=True).dropna(axis=0)
         return DataEdit(common)
