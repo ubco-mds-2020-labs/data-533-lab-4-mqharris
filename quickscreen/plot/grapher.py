@@ -16,7 +16,7 @@ class HistogramPlot(Plotter):
         Parameters
         ----------
         data : pandas.DataFrame
-            the Pandas Dataframe to be plotted
+            the Pandas DataFrame to be plotted
         plot_title : str, optional (default = None)
             the plot title
         label_names : str tuple, optional (default = None)
@@ -30,7 +30,7 @@ class HistogramPlot(Plotter):
         --------
         >>> HistogramPlot(pd.DataFrame(data), "Name of Plot", ("Name of X-axis", "Name of Y-axis"))
         """
-        Plotter.__init__(self, data, plot_title=None, label_names=None)
+        Plotter.__init__(self, data, plot_title, label_names)
 
     def histogram(self, col_name, bins=10):
         """
@@ -68,7 +68,7 @@ class ScatterPlot(Plotter):
         Parameters
         ----------
         data : pandas.DataFrame
-            the Pandas Dataframe to be plotted
+            the Pandas DataFrame to be plotted
         plot_title : str, optional (default = None)
             the plot title
         label_names : str tuple, optional (default = None)
@@ -82,7 +82,7 @@ class ScatterPlot(Plotter):
         --------
         >>> ScatterPlot(pd.DataFrame(data), "Name of Plot", ("Name of X-axis", "Name of Y-axis"))
         """
-        Plotter.__init__(self, data, plot_title=None, label_names=None)
+        Plotter.__init__(self, data, plot_title, label_names)
 
     def scatter(self, col1, col2):
         """
@@ -114,18 +114,14 @@ class ScatterMatrix(Plotter):
     ScatterMatrix plot subclass of Plotter class
     """
 
-    def __init__(self, data, plot_title=None, label_names=None):
+    def __init__(self, data):
         """
         Initialize class using the Plotter class
 
         Parameters
         ----------
         data : pandas.DataFrame
-            the Pandas Dataframe to be plotted
-        plot_title : str, optional (default = None)
-            the plot title
-        label_names : str tuple, optional (default = None)
-            the x-axis and y-axis titles (x-axis is position [0], y-axis is position [1])
+            the Pandas DataFrame to be plotted
 
         Returns
         -------
@@ -133,9 +129,9 @@ class ScatterMatrix(Plotter):
 
         Examples
         --------
-        >>> ScatterMatrix(pd.DataFrame(data), "Name of Plot", ("Name of X-axis", "Name of Y-axis"))
+        >>> ScatterMatrix(pd.DataFrame(data))
         """
-        Plotter.__init__(self, data, plot_title=None, label_names=None)
+        Plotter.__init__(self, data)
 
     def scatter_matrix(self):
         """
@@ -143,10 +139,7 @@ class ScatterMatrix(Plotter):
 
         Parameters:
         -----------
-        col1 = "str"
-            column name to be used for x-axis values
-        col1 = "str"
-            column name to be used for y-axis values
+        None
 
         Returns:
         --------
@@ -154,7 +147,7 @@ class ScatterMatrix(Plotter):
 
         Examples:
         ---------
-        >>> working_scatter = HistogramPlot(pd.DataFrame(data, columns = ['col1', 'col2']))
-        >>> working_scatter.ScatterPlot('col1', 'col2')
+        >>> working_scatter = ScatterMatrix(pd.DataFrame(data))
+        >>> working_scatter.scatter_matrix()
         """
         sns.pairplot(self.data, diag_kws={"bins": 10})
