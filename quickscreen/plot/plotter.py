@@ -95,8 +95,8 @@ class Plotter:
 
         Examples
         --------
-        >>> workingplot = Plotter(pd.DataFrame(data))
-        >>> workingplot.save_plot(save_loc="./output/", file_name="final_plot")
+        >>> working_plot = Plotter(pd.DataFrame(data))
+        >>> working_plot.save_plot(save_loc="./output/", file_name="final_plot")
         """
         # doesnt work on windows
         # untested on linux
