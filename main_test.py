@@ -1,5 +1,7 @@
 from quickscreen.plot.plotter import Plotter
 from quickscreen.plot.grapher import *
+from quickscreen.analysis.datafill import *
+from quickscreen.analysis.linear_analysis import *
 import pandas as pd
 
 if __name__ == "__main__":
@@ -32,7 +34,33 @@ if __name__ == "__main__":
         d.scatter_matrix()
         d.save_plot()
 
+    def test_datafill():
+        df = pd.read_csv("./data/CarPrice.csv")
+        df1 = pd.read_csv("./data/CarPrice.csv")
+        de = Data_edit(df)
+        de1 = Data_edit(df1)
 
+        # de3 = de1 + de.data.curbweight
+        # print(de1.data.shape)
+        # print(de3.data.shape)
+        # print(de3.data.head())
+
+        isinstance(de.data, pd.core.frame.DataFrame)
+        print(isinstance(de.data.curbweight, pd.core.frame.DataFrame))
+
+    def test_Lm():
+        df = pd.read_csv("./data/CarPrice.csv")
+        de = Data_edit(df)
+        print(de.data)
+        l = lm(df)
+        sr = l.singlelineareqn("enginesize", "horsepower")
+        print(sr)
+
+
+
+
+    # test_datafill()
     # test_scatterplot()
     # test_histogram()
-    test_confusion()
+    # test_confusion()
+    test_Lm()

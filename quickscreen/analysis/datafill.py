@@ -17,7 +17,7 @@ class Data_edit:
 
     def __add__(self, other):
         assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
-        return Data_edit(self.data.append(other, ignore_index=True))
+        return Data_edit(self.data.append(other.data, ignore_index=True))
     
     def __sub__(self, other):
         assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
