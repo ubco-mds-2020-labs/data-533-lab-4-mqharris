@@ -5,7 +5,7 @@ from .plotter import Plotter
 
 class HistogramPlot(Plotter):
     def __init__(self, data):
-        super().__init__(data)
+        Plotter.__init__(self, data)
 
     def histogram(self, col_name, bins=10):
         c1 = self.data[col_name]
@@ -13,7 +13,7 @@ class HistogramPlot(Plotter):
 
 class ScatterPlot(Plotter):
     def __init__(self, data):
-        super().__init__(data)
+        Plotter.__init__(self, data)
     
     def scatter(self, col1, col2):
         c1 = self.data[col1]
@@ -22,7 +22,7 @@ class ScatterPlot(Plotter):
 
 class ScatterMatrix(Plotter):
     def __init__(self, data):
-        super().__init__(data)
+        Plotter.__init__(self, data)
 
     def scatter_matrix(self):
         sns.pairplot(self.data, diag_kws={'bins': 10})

@@ -1,4 +1,5 @@
 import datetime
+from sys import platform
 
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
@@ -30,7 +31,14 @@ class Plotter():
 
     def save_plot(self, save_loc="", file_name=None):
         # currently hard coded to save only as jpg
-        # currently only hard coded save in the root dir
+        # currently only hard coded save in existent dirs
+
+        # doesnt work on windows
+        # untested on linux
+        if platform != "darwin":
+            raise Exception("Can only save plot on MacOS")
+
+
         if self.label_names:
                 plt.xlabel(self.label_names[0])
                 plt.ylabel(self.label_names[1])
@@ -41,12 +49,3 @@ class Plotter():
             str_date = str(x.date())+str(x.time())
             file_name = type(self).__name__ +"_"+ str_date
         plt.savefig(save_loc+file_name+".jpg")
-
-    def get_numeric_columns(self):
-        # Not currently used
-        numeric_columns = []
-        for col in self.data.columns:
-            if is_numeric_dtype(self.data[col]):
-                numeric_columns.append(col)
-        return numeric_columns
-

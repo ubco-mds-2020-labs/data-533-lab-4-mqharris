@@ -38,7 +38,7 @@ class Df_Info:
 
 class Missing(Df_Info):
     def __init__(self, df, type="columns"):
-        df_info.__init__(self, df, type)
+        Df_Info.__init__(self, df, type)
         if self.type == "columns":
             self.count_missing = df.isnull().sum()
             self.percent_missing = self.count_missing / self.columns
