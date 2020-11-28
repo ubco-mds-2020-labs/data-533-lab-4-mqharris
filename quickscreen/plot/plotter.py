@@ -75,18 +75,16 @@ class Plotter:
             plt.title(self.plot_title)
         plt.show()
 
-    def save_plot(self, save_loc="", file_name=None):
+    def save_plot(self, file_name=None):
         """
         Function to save plot as jpg, only on MacOS
+        Hard Coded to save to the current working directory
 
         Parameters
         ----------
-        save_loc : str, optional (default = "")
-            file directory to save plot
-            will save in current working directory by default
         file_name : str, optional (default = None)
             filename for plot
-            will use data and time as default filename
+            will use date and time as default filename
 
         Returns
         -------
@@ -96,7 +94,7 @@ class Plotter:
         Examples
         --------
         >>> working_plot = Plotter(pd.DataFrame(data))
-        >>> working_plot.save_plot(save_loc="./output/", file_name="final_plot")
+        >>> working_plot.save_plot(file_name="final_plot")
         """
         # doesnt work on windows
         # untested on linux
@@ -110,6 +108,7 @@ class Plotter:
             plt.title(self.plot_title)
         if file_name is None:
             x = datetime.datetime.now()
-            str_date = str(x.date()) + str(x.time())
+            str_date = str(x.date()) +"_"+ str(x.time())
             file_name = type(self).__name__ + "_" + str_date
-        plt.savefig(save_loc + file_name + ".jpg")
+            print(file_name)
+        plt.savefig(file_name + ".jpg")
