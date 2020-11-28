@@ -78,7 +78,7 @@ class Plotter:
     def save_plot(self, file_name=None):
         """
         Function to save plot as jpg, only on MacOS
-        Hard Coded to save to the current working directory
+        Saves to current working directory
 
         Parameters
         ----------
