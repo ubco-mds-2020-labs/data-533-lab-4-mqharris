@@ -25,7 +25,7 @@ if __name__ == "__main__":
         d.scatter("curbweight", "horsepower")
         d.show_plot()
 
-    def test_confusion():
+    def test_scatter_matrix():
         # this doesn't display nicely on my machine
         df = pd.read_csv("./data/CarPrice.csv")
         d = ScatterMatrix(data=df)
@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     # test_scatterplot()
     # test_histogram()
-    test_confusion()
+    test_scatter_matrix()
 
     # test_simple_summary()
     # test_missing_summary()
