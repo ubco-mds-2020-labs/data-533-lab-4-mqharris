@@ -3,8 +3,27 @@ import pandas as pd
 
 
 class DataEdit:
+    """
+    A class for easy dataframe manipulation
+    """
 
     def __init__(self, data):
+        """
+        Initializes data edit class
+
+        Parameters
+        ----------
+        data : pandas.Dataframe
+            the pandas dataframe to be manipulated
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        >>> DataEdit(pd.Dataframe(data))
+        """
         self.data = data
         assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
 
