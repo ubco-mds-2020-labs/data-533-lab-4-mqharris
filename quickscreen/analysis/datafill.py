@@ -53,20 +53,60 @@ class DataEdit:
 
         Returns
         -------
-        pandas.Dataframe
-            class's data
+        numpy.dtype
+            dtype of column
         """
         assert (isinstance(column, int) or column in self.data), "Please enter an integer or the name of a column"
         return self.data.dtypes[column]
 
     def __add__(self, other):
+        """
+        appends one dataframe to another
+
+        Parameters
+        ----------
+        other : pandas.Dataframe
+            the dataframe to add to the original
+
+        Returns
+        -------
+        pandas.Dataframe
+            the two dataframes appended
+
+        Examples
+        --------
+        >>> TODO
+        """
         assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
         return DataEdit(self.data.append(other, ignore_index=True))
     
     def __sub__(self, other):
+        """
+        removes the insersection of the two dataframes
+
+        Parameters
+        ----------
+        other : pandas.Dataframe
+            the dataframe to intersect with the original
+
+        Returns
+        -------
+        pandas.Dataframe
+            original dataframe with interseciton with other removed
+        
+        Examples
+        --------
+        >>> difference = DataEdit(df1) - df2
+        """
         assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
-        temp = pd.concat([self.data, other], axis=0, join='outer')
-        common = pd.concat([self.data, temp],axis=0, join='inner', ignore_index=True).dropna(axis=0)
+        # temp = pd.concat([self.data, other], axis=0, join='outer')
+        # # t = pd.concat([df, df], axis=0, join='outer', ignore_index=True)
+        # common = pd.concat([self.data, temp],axis=0, join='inner', ignore_index=True).dropna(axis=0)
+        # # common = pd.concat([df, t],axis=0, join='inner', ignore_index=True).dropna(axis=0)
+        try:
+            common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
+        except:
+            common=self.data
         return DataEdit(common)
 
     def rm_duplicates(self):
