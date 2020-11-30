@@ -28,9 +28,34 @@ class DataEdit:
         assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
 
     def display(self):
+        """
+        Getter function for data
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        pandas.Dataframe
+            class's data
+        """
         return self.data
 
     def columntype(self, column):
+        """
+        Gets the data type for the column specified by index or by nane
+
+        Parameters
+        ----------
+        column : int or string
+            int - column index, string - column name
+
+        Returns
+        -------
+        pandas.Dataframe
+            class's data
+        """
         assert (isinstance(column, int) or column in self.data), "Please enter an integer or the name of a column"
         return self.data.dtypes[column]
 
