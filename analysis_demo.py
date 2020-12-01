@@ -6,6 +6,9 @@ from quickscreen.analysis.datafill import *
 
 if __name__ == "__main__":
 
+    def datafill_example():
+        return
+
     def init_example():
         df = pd.read_csv("./data/CarPrice.csv")
         
@@ -117,4 +120,11 @@ if __name__ == "__main__":
         de_no_na = de.quick_clean()
         print(de_no_na.data.head(10))
 
-init_example()
+    def Lm_example():
+        return
+
+    def lm_init_example():
+        df = pd.read_csv("./data/CarPrice.csv")
+        lm = Lm(df)
+
+        
