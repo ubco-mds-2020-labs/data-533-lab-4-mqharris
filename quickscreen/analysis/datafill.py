@@ -75,7 +75,7 @@ class DataEdit:
 
         Examples
         --------
-        >>> TODO
+        >>> DataEdit(df1) + df2
         """
         assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
         return DataEdit(self.data.append(other, ignore_index=True))
