@@ -110,9 +110,42 @@ class DataEdit:
         return DataEdit(common)
 
     def rm_duplicates(self):
+        """
+        removes duplicate rows from DataEdit object's data
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        DataEdit instance
+            with the same data as the original object, but with duplicate rows removed
+        
+        Examples
+        --------
+        >>> difference = DataEdit(df1).rm_duplicates()
+        """
         return DataEdit(self.data.drop_duplicates())
 
     def rm_nan(self):
+        """
+        Removes rows that have na for values
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        DataEdit instance
+            with the same data as the original object,
+            but with rows comintaining na removed
+        
+        Examples
+        --------
+        >>> difference = DataEdit(df1).rm_nan()
+        """
         return DataEdit(self.data.dropna(axis=0))
     
     def quick_clean(self):
