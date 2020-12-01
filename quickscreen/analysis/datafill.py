@@ -149,6 +149,24 @@ class DataEdit:
         return DataEdit(self.data.dropna(axis=0))
     
     def quick_clean(self):
+        """
+        Removes rows that have na for values and rows that are duplicates
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        DataEdit instance
+            with the same data as the original object,
+            but with rows comintaining na removed,
+            and duplicate rows removed
+        
+        Examples
+        --------
+        >>> difference = DataEdit(df1).quick_clean()
+        """
         return DataEdit(self.data.drop_duplicates().dropna(axis=0))
 
 
