@@ -23,17 +23,48 @@ if __name__ == "__main__":
         print(df.shape)
         print(d.data.shape)
 
+    def rm_nan_example():
+        # rm_nan example
+        data = {
+                "a":[1,2,3,4,5,6,7],
+                "b":[11,12,13,14,15,np.nan,17]
+                }
+        df = pd.DataFrame(data, columns=["a", "b"])
+        de = DataEdit(df)
 
-    # rm_nan example
-    data = {
-            "a":[1,2,3,4,5,6,7],
-            "b":[11,12,13,14,15,np.nan,17]
-            }
-    df = pd.DataFrame(data, columns=["a", "b"])
-    de = DataEdit(df)
+        print(de.data.head(10))
 
-    print(de.data.head(10))
+        de_no_na = de.rm_nan()
+        print(de_no_na.data.head(10))
+    
+    def rm_duplicates_example():
 
-    de_no_na = de.rm_nan()
-    print(de_no_na.data.head(10))
+        # rm_duplicates example
+        data = {
+                "a":[1,2,3,4,5,6,4],
+                "b":[11,12,13,14,15,np.nan,14]
+                }
+        df = pd.DataFrame(data, columns=["a", "b"])
+        de = DataEdit(df)
 
+        print(de.data.head(10))
+
+        de_no_na = de.rm_duplicates()
+        print(de_no_na.data.head(10))
+
+    def quick_clean_example():
+
+        # quick clean example
+        data = {
+                "a":[1,2,3,4,5,6,4],
+                "b":[11,12,13,14,15,np.nan,14]
+                }
+        df = pd.DataFrame(data, columns=["a", "b"])
+        de = DataEdit(df)
+
+        print(de.data.head(10))
+
+        de_no_na = de.quick_clean()
+        print(de_no_na.data.head(10))
+
+quick_clean_example()
