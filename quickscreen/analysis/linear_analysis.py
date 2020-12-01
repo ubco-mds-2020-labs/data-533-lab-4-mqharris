@@ -17,37 +17,41 @@ class Lm(dfl.DataEdit):
 
         Parameters
         ----------
-        name : type
-            description
+        data : pandas.Dataframe
+            the data to have linear regression functions applied to
 
         Returns
         -------
-        name : type
-            description
+        None
 
         Examples
         --------
-        >>> put examples here
+        >>> Lm(pd.Dataframe(data))
         """
         dfl.DataEdit.__init__(self, data)
 
     def single_linear(self, predictor, estimator):
         """
-        description
+        fits a single linear regression with the estimator as the independant variable
+        and predictor as the dependant variable fits the model to these columns
+        then predicts y values using the estimator values
 
         Parameters
         ----------
-        name : type
-            description
+        predictor : int or string
+            the column name or index for the y values in the regression
+        estimator : int or string
+            the column name or index for the x values in the regression
 
         Returns
         -------
-        name : type
-            description
+        prediction : ndarray
+            predictions of the estimator from the model fit on the estimator data
 
         Examples
         --------
-        >>> put examples here
+        >>> lm = Lm(df)
+        >>> slr = lm.single_linear("column_name_for_y", "column_name_for_x")
         """
         assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
         assert (isinstance(predictor, int) or predictor in self.data), "Please enter an integer or the name of a column for the predictor" 
@@ -60,21 +64,25 @@ class Lm(dfl.DataEdit):
 
     def single_linear_plot(self, predictor, estimator):
         """
-        description
+        creates a plot of the predictor vs estimator
+        and includes the best fit line
+        and displays the plot
 
         Parameters
         ----------
-        name : type
-            description
+        predictor : int or string
+            the column name or index for the y values in the regression
+        estimator : int or string
+            the column name or index for the x values in the regression
 
         Returns
         -------
-        name : type
-            description
+        None
 
         Examples
         --------
-        >>> put examples here
+        >>> lm = Lm(df)
+        >>> lm.single_linear_plot("column_name_for_y", "column_name_for_x")
         """
         assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
         assert (isinstance(predictor, int) or predictor in self.data), "Please enter an integer or the name of a column for the predictor" 
@@ -92,21 +100,24 @@ class Lm(dfl.DataEdit):
 
     def single_linear_eqn(self, predictor, estimator):
         """
-        description
+        fits a single linear regression model and displays the
+        equation of the best fit line
 
         Parameters
         ----------
-        name : type
-            description
+        predictor : int or string
+            the column name or index for the y values in the regression
+        estimator : int or string
+            the column name or index for the x values in the regression
 
         Returns
         -------
-        name : type
-            description
+        None
 
         Examples
         --------
-        >>> put examples here
+        >>> lm = Lm(df)
+        >>> lm.single_linear_eqn("horsepower", "enginesize")
         """
         assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
         assert (isinstance(predictor, int) or predictor in self.data), "Please enter an integer or the name of a column for the predictor" 
