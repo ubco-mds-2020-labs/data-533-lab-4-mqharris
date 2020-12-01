@@ -32,7 +32,7 @@ class Lm(dfl.DataEdit):
         dfl.DataEdit.__init__(self, data)
 
     def single_linear(self, predictor, estimator):
-       """
+        """
         description
 
         Parameters
@@ -59,7 +59,7 @@ class Lm(dfl.DataEdit):
         return prediction
 
     def single_linear_plot(self, predictor, estimator):
-       """
+        """
         description
 
         Parameters
@@ -91,7 +91,7 @@ class Lm(dfl.DataEdit):
         return plt.show()
 
     def single_linear_eqn(self, predictor, estimator):
-       """
+        """
         description
 
         Parameters
