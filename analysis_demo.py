@@ -6,6 +6,31 @@ from quickscreen.analysis.datafill import *
 
 if __name__ == "__main__":
 
+    def init_example():
+        df = pd.read_csv("./data/CarPrice.csv")
+        
+        de = DataEdit(df)
+
+        print(type(de).__name__)
+
+    def display_example():
+        df = pd.read_csv("./data/CarPrice.csv")
+        
+        de = DataEdit(df)
+
+        print(de.display().head())
+
+    def column_type_example():
+        df = pd.read_csv("./data/CarPrice.csv")
+        
+        de = DataEdit(df)
+
+        # getting column type by column index
+        print(de.columntype(2))
+
+        # getting column type by column name
+        print(de.columntype("enginesize"))
+
     def add_example():
         data1 = {
                 "a":[1,2,3,4,5,6,4],
@@ -92,4 +117,4 @@ if __name__ == "__main__":
         de_no_na = de.quick_clean()
         print(de_no_na.data.head(10))
 
-add_example()
+init_example()

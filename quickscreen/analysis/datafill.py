@@ -99,14 +99,10 @@ class DataEdit:
         >>> difference = DataEdit(df1) - df2
         """
         assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
-        # temp = pd.concat([self.data, other], axis=0, join='outer')
-        # # t = pd.concat([df, df], axis=0, join='outer', ignore_index=True)
-        # common = pd.concat([self.data, temp],axis=0, join='inner', ignore_index=True).dropna(axis=0)
-        # # common = pd.concat([df, t],axis=0, join='inner', ignore_index=True).dropna(axis=0)
         try:
             common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
         except:
-            common=self.data
+            common = self.data
         return DataEdit(common)
 
     def rm_duplicates(self):
@@ -124,7 +120,7 @@ class DataEdit:
         
         Examples
         --------
-        >>> difference = DataEdit(df1).rm_duplicates()
+        >>> DataEdit(df).rm_duplicates()
         """
         return DataEdit(self.data.drop_duplicates())
 
@@ -144,7 +140,7 @@ class DataEdit:
         
         Examples
         --------
-        >>> difference = DataEdit(df1).rm_nan()
+        >>> DataEdit(df1).rm_nan()
         """
         return DataEdit(self.data.dropna(axis=0))
     
@@ -165,7 +161,7 @@ class DataEdit:
         
         Examples
         --------
-        >>> difference = DataEdit(df1).quick_clean()
+        >>> DataEdit(df1).quick_clean()
         """
         return DataEdit(self.data.drop_duplicates().dropna(axis=0))
 
