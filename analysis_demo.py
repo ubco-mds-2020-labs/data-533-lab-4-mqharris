@@ -126,5 +126,25 @@ if __name__ == "__main__":
     def lm_init_example():
         df = pd.read_csv("./data/CarPrice.csv")
         lm = Lm(df)
+    
+    def single_linear_example():
+        df = pd.read_csv("./data/CarPrice.csv")
+        lm = Lm(df)
+        print(df.columns)
+        slr = lm.single_linear("horsepower", "enginesize")    
+        print(slr)
 
-        
+
+    def single_linear_plot_example():
+        df = pd.read_csv("./data/CarPrice.csv")
+        lm = Lm(df)
+        lm.single_linear_plot("horsepower", "enginesize")
+
+    def single_linear_eqn_example():
+        df = pd.read_csv("./data/CarPrice.csv")
+        lm = Lm(df)
+        lm.single_linear_eqn("horsepower", "enginesize")
+
+
+
+single_linear_eqn_example()
