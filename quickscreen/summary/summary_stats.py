@@ -5,6 +5,24 @@ from quickscreen.summary.summary_classes import *
 
 
 def missing_summary(df, type="columns"):
+    """
+    Outputs the count and percent of null values in a Pandas Dataframe for each column or row.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Pandas Dataframe to be viewed
+    type : str, optional {"columns", "rows"}
+
+    Returns
+    -------
+    pandas.Dataframe
+        The total null values and the percent of null values.
+
+    Examples
+    --------
+    >>> missing_summary(pd.DataFrame(df), "rows")
+    """
     data = Missing(df, type)
     df_out = {
         "count_missing": data.count_missing,
@@ -15,6 +33,24 @@ def missing_summary(df, type="columns"):
 
 
 def stats_summary(df, type="columns"):
+    """
+    Outputs the max, min, and mean of a Pandas Dataframe for each column or row.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Pandas Dataframe to be viewed
+    type : str, optional {"columns", "rows"}
+
+    Returns
+    -------
+    pandas.Dataframe
+        The maximum, minimum, and mean values.
+
+    Examples
+    --------
+    >>> stats_summary(pd.DataFrame(df), "rows")
+    """
     data = Stats(df, type)
     df_out = {"max": data.sub_max, "min": data.sub_min, "mean": data.sub_mean}
 
@@ -22,10 +58,46 @@ def stats_summary(df, type="columns"):
 
 
 def all_summary(df, type="columns"):
+    """
+    Outputs the maximum, minimum, mean, null count, and percentage null values of a Pandas Dataframe for each column or row.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Pandas Dataframe to be viewed
+    type : str, optional {"columns", "rows"}
+
+    Returns
+    -------
+    pandas.Dataframe
+        The maximum, minimum, mean, null count, and percentage null values of a Pandas Dataframe for each column or row.
+
+    Examples
+    --------
+    >>> Df_Info(pd.DataFrame(df), "rows")
+    """
     return pd.concat([stats_summary(df, type), missing_summary(df, type)], axis=1)
 
 
 def simple_summary(df):
+    """
+    Outputs the max, min, and mean values of a Pandas dataframe as well as the row count, columns count, and null count.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Pandas Dataframe to be viewed
+
+
+    Returns
+    -------
+    pandas.Dataframe
+        The maximum, minimum, mean, amound of rows and columns, and total null values.
+
+    Examples
+    --------
+    >>> Df_Info(pd.DataFrame(df), "rows")
+    """
     data = Df_Info(df)
     output_labels = [
         "df_max",
