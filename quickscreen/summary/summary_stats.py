@@ -6,7 +6,7 @@ from quickscreen.summary.summary_classes import *
 
 def missing_summary(df, type="columns"):
     """
-    Retrieves the amount and percent of null values in a Pandas Dataframe
+    Outputs the count and percent of null values in a Pandas Dataframe for each column or row.
 
     Parameters
     ----------
@@ -34,7 +34,7 @@ def missing_summary(df, type="columns"):
 
 def stats_summary(df, type="columns"):
     """
-    Retrieves the max, min, and mean of a Pandas Dataframe
+    Outputs the max, min, and mean of a Pandas Dataframe for each column or row.
 
     Parameters
     ----------
@@ -59,19 +59,18 @@ def stats_summary(df, type="columns"):
 
 def all_summary(df, type="columns"):
     """
-    Retrives the maximum, minimum, mean, total null, and percentage null values.
+    Outputs the maximum, minimum, mean, null count, and percentage null values of a Pandas Dataframe for each column or row.
 
     Parameters
     ----------
     df : pandas.DataFrame
         Pandas Dataframe to be viewed
-    type : str, optional (default = "columns")
-        Input "rows" or "columns" for how you are calculating your data.
+    type : str, optional {"columns", "rows"}
 
     Returns
     -------
     pandas.Dataframe
-        The maximum, minimum, mean, total null, and percentage null values
+        The maximum, minimum, mean, null count, and percentage null values of a Pandas Dataframe for each column or row.
 
     Examples
     --------
@@ -82,7 +81,7 @@ def all_summary(df, type="columns"):
 
 def simple_summary(df):
     """
-    Retrives the max, min, and mean values of a dataframe as well as the total rows, columns and null values.
+    Outputs the max, min, and mean values of a Pandas dataframe as well as the row count, columns count, and null count.
 
     Parameters
     ----------
