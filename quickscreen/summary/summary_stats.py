@@ -88,8 +88,7 @@ def simple_summary(df):
     ----------
     df : pandas.DataFrame
         Pandas Dataframe to be viewed
-    type : str, optional (default = "columns")
-        Input "rows" or "columns" for how you are calculating your data.
+
 
     Returns
     -------
