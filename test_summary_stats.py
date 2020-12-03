@@ -11,6 +11,7 @@ from quickscreen.summary.summary_stats import simple_summary
 
 class TestSummaryStats(unittest.TestCase):
     def setUp(self):
+        print("Set Up")
         self.df = pd.DataFrame(np.arange(100).reshape(20, 5))
         self.df2 = self.df.copy()
         self.df2.iloc[0, 0] = np.nan
@@ -18,7 +19,7 @@ class TestSummaryStats(unittest.TestCase):
         self.test_array2 = np.arange(95, 100)
 
     def tearDown(self):
-        pass
+        print("Tear Down")
 
     def test_missing_summary(self):
         self.assertIsInstance(missing_summary(self.df), pd.DataFrame)
@@ -58,8 +59,11 @@ class TestSummaryStats(unittest.TestCase):
         test_array4 = np.array([99.0, 1.0, 50.0, 20.0, 5.0, 1.0])
         self.assertIsInstance(simple_summary(self.df), pd.DataFrame)
         self.assertEqual(simple_summary(self.df).shape, (6, 1))
-        self.assertTrue((simple_summary(df).values.flatten() == test_array3).all())
-        self.assertTrue((simple_summary(df2).values.flatten() == test_array4).all())
+        self.assertTrue((simple_summary(self.df).values.flatten() == test_array3).all())
+        self.assertTrue(
+            (simple_summary(self.df2).values.flatten() == test_array4).all()
+        )
 
 
-unittest.main(argv=[""], verbosity=2, exit=False)
+if __name__ == "__main__":
+    unittest.main(argv=[""], verbosity=2, exit=False)
