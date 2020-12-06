@@ -53,8 +53,8 @@ class HistogramPlot(Plotter):
         >>> working_hist.histogram('col1', bins=20)
         """
         c1 = self.data[col_name]
-        plt.hist(c1, bins=bins)
-        return plt
+        graph = plt.hist(c1, bins=bins)
+        return graph
 
 
 class ScatterPlot(Plotter):
@@ -107,7 +107,8 @@ class ScatterPlot(Plotter):
         """
         c1 = self.data[col1]
         c2 = self.data[col2]
-        plt.plot(c1, c2, "o")
+        sp = plt.plot(c1, c2, "o")
+        return sp
 
 
 class ScatterMatrix(Plotter):

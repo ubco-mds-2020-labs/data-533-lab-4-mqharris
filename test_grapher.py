@@ -37,7 +37,12 @@ class TestGrapher(unittest.TestCase):
         self.assertIsInstance(self.scatterplot, ScatterPlot)
 
     def test_grapher_data(self):
-        shit = self.histogram.histogram("B")
-        print(dir(shit))
-        shit.xkcd()
+        data_hist = self.histogram.histogram("B")
+        data_per_bin = [10.0] * 10
+        bin_data = [0.,19.8,39.6,59.4,79.2,99.,118.8,138.6,158.4,178.2,198.]
+        self.assertListEqual(list(data_hist[0]), data_per_bin)
+        self.assertEqual(len(list(data_hist[1])), len(bin_data))
+        for i in range(0, len(bin_data)):
+            self.assertAlmostEqual(bin_data[i], data_hist[1][i])
+
         
