@@ -152,4 +152,5 @@ class ScatterMatrix(Plotter):
         >>> working_scatter = ScatterMatrix(pd.DataFrame(data))
         >>> working_scatter.scatter_matrix()
         """
-        sns.pairplot(self.data, diag_kws={"bins": 10})
+        sm = sns.pairplot(self.data, diag_kws={"bins": 10})
+        return sm
