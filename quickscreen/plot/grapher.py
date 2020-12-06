@@ -54,6 +54,7 @@ class HistogramPlot(Plotter):
         """
         c1 = self.data[col_name]
         plt.hist(c1, bins=bins)
+        return plt
 
 
 class ScatterPlot(Plotter):
