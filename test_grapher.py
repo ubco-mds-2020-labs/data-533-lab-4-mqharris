@@ -1,6 +1,7 @@
 import unittest
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 from quickscreen.plot.grapher import HistogramPlot
 from quickscreen.plot.grapher import ScatterPlot
@@ -30,6 +31,7 @@ class TestGrapher(unittest.TestCase):
     
     def tearDown(self):
         print("TearDown")
+        plt.clf()
 
     def test_initialization(self):
         self.assertIsInstance(self.histogram, HistogramPlot)
@@ -56,8 +58,9 @@ class TestGrapher(unittest.TestCase):
         self.assertListEqual(returned_y, expected_y)
 
         # scatter matrix
+        expected_axis_0 = (-4.95, 103.95, -4.95, 103.95)
+        expected_axis_1 = (-9.9, 207.9, -4.95, 103.95)
         data_sm = self.scattermatrix.scatter_matrix()
-        data_sm.show()
-        print((data_sm.x_vars))
-        
-
+        data_sm = (data_sm.axes[0])
+        self.assertEqual(expected_axis_0, data_sm[0].axis())
+        self.assertEqual(expected_axis_1, data_sm[1].axis())
