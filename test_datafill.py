@@ -12,6 +12,9 @@ class TestDataEdit(unittest.TestCase):
         
         
     def tearDown(self):
+        self.data1.destroy()
+        self.data2.destroy()
+        self.data3.destroy()
 
     def test_display(self):
         self.assertIsInstance(self.data1,pd.DataFrame,'Not a pandas DataFrame')
@@ -35,6 +38,6 @@ class TestDataEdit(unittest.TestCase):
         self.assertEqual(self.data3, pd.DataFrame([np.arange(5,9),np.arange(3,7)]), 'Did not remove NaN')
 
     def test_quick_clean(self):
-        self.assertEqual(self.data3,pd.DataFrame(np.array([np.arange(5,9)])))
+        self.assertEqual(self.data3, pd.DataFrame(np.array([np.arange(5,9)])))
     
 

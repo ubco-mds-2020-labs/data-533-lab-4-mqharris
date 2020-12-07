@@ -1,4 +1,5 @@
-import quickscreen.analysis.datafill as dfl
+#import quickscreen.analysis.datafill as dfl
+import datafill as dfl
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
@@ -127,4 +128,7 @@ class Lm(dfl.DataEdit):
 
         coef = round(float(l_regressor.coef_),2)
         intercept = round(float(l_regressor.intercept_),2)
-        print('y=' + str(coef) + 'x+' + str(intercept))
+        return ({"Coefficient":coef,"Intercpet":intercept})
+        
+
+
