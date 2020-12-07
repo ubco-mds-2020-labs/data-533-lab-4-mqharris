@@ -53,7 +53,8 @@ class HistogramPlot(Plotter):
         >>> working_hist.histogram('col1', bins=20)
         """
         c1 = self.data[col_name]
-        plt.hist(c1, bins=bins)
+        graph = plt.hist(c1, bins=bins)
+        return graph
 
 
 class ScatterPlot(Plotter):
@@ -106,7 +107,8 @@ class ScatterPlot(Plotter):
         """
         c1 = self.data[col1]
         c2 = self.data[col2]
-        plt.plot(c1, c2, "o")
+        sp = plt.plot(c1, c2, "o")
+        return sp
 
 
 class ScatterMatrix(Plotter):
@@ -150,4 +152,5 @@ class ScatterMatrix(Plotter):
         >>> working_scatter = ScatterMatrix(pd.DataFrame(data))
         >>> working_scatter.scatter_matrix()
         """
-        sns.pairplot(self.data, diag_kws={"bins": 10})
+        sm = sns.pairplot(self.data, diag_kws={"bins": 10})
+        return sm
