@@ -58,7 +58,7 @@ class Lm(dfl.DataEdit):
         y = self.data[predictor].to_numpy().reshape(-1,1)
         l_regressor = LinearRegression()
         l_regressor.fit(x,y)
-        prediction = l_regressor.predict(x)
+        prediction = np.round(l_regressor.predict(x).reshape(1,3)[0])
         return prediction
 
     def single_linear_plot(self, predictor, estimator):
@@ -127,7 +127,7 @@ class Lm(dfl.DataEdit):
 
         coef = round(float(l_regressor.coef_),2)
         intercept = round(float(l_regressor.intercept_),2)
-        return ({"Coefficient":coef,"Intercpet":intercept})
+        return ({"Coefficient":coef,"Intercept":intercept})
         
 
 
