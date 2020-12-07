@@ -52,8 +52,8 @@ class TestGrapher(unittest.TestCase):
         data_sp = self.scatterplot.scatter("A", "B")[0]
         returned_x = list(data_sp.get_xdata())
         returned_y = list(data_sp.get_ydata())
-        expected_x = [x for x in range(0, 100)]
-        expected_y = [x*2 for x in range(0, 100)]
+        expected_x = list(self.df["A"])
+        expected_y = list(self.df["B"])
         self.assertListEqual(returned_x, expected_x)
         self.assertListEqual(returned_y, expected_y)
 
