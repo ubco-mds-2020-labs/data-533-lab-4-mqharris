@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import quickscreen.analysis.linear_analysis as la
 
-class TestDataEdit(unittest.TestCase):
+class TestLm(unittest.TestCase):
 
     def setUp(self):
         self.data1 = la.Lm(pd.DataFrame(np.array([[0,0],[1,1],[2,2]])))
