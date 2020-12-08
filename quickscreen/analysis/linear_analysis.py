@@ -58,7 +58,7 @@ class Lm(dfl.DataEdit):
         y = self.data[predictor].to_numpy().reshape(-1,1)
         l_regressor = LinearRegression()
         l_regressor.fit(x,y)
-        prediction = np.round(l_regressor.predict(x).reshape(1,3)[0])
+        prediction = l_regressor.predict(x)
         return prediction
 
     def single_linear_plot(self, predictor, estimator):
