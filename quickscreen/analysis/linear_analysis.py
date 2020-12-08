@@ -127,4 +127,7 @@ class Lm(dfl.DataEdit):
 
         coef = round(float(l_regressor.coef_),2)
         intercept = round(float(l_regressor.intercept_),2)
-        print('y=' + str(coef) + 'x+' + str(intercept))
+        return ({"Coefficient":coef,"Intercept":intercept})
+        
+
+

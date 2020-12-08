@@ -10,6 +10,10 @@ from test_plotter import TestPlotter
 from test_grapher import TestGrapher
 
 
+from test_datafill import TestDataEdit
+from test_linear_analysis import TestLm
+
+
 def my_suite():
     suite = unittest.TestSuite()
     result = unittest.TestResult()
@@ -24,8 +28,16 @@ def my_suite():
     suite.addTest(unittest.makeSuite(TestPlotter))
     suite.addTest(unittest.makeSuite(TestGrapher))
 
+    # test analysis
+    suite.addTest(unittest.makeSuite(TestDataEdit))
+    suite.addTest(unittest.makeSuite(TestLm))
+
+
     runner = unittest.TextTestRunner()
     print(runner.run(suite))
 
 
+
+
 my_suite()
+
