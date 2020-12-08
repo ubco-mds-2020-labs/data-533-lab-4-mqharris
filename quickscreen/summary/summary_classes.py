@@ -8,7 +8,6 @@ class Df_Info:
     Dataframe class
     """
 
-
     def __init__(self, df, type="columns"):
         """
         Initializes dataframe class with option to select column or row.
@@ -34,9 +33,9 @@ class Df_Info:
         self.df = df
         self.type = type
         self.rows = self.df.shape[0]
-        self.columns = self.df.shape[0]
+        self.columns = self.df.shape[1]
 
-    def total_max(self): 
+    def total_max(self):
         """
         Calculates the max value in the data frame.
 
@@ -47,7 +46,7 @@ class Df_Info:
         Returns
         -------
         float
-        or 
+        or
         Null value
         """
         try:
@@ -66,7 +65,7 @@ class Df_Info:
         Returns
         -------
         float
-        or 
+        or
         Null value
         """
         try:
@@ -85,11 +84,11 @@ class Df_Info:
         Returns
         -------
         float
-        or 
+        or
         Null value
         """
         try:
-            return self.df.mean(numeric_only=True).mean(numeric_only=True)
+            return self.df.mean(numeric_only=True).mean()
         except:
             return np.nan
 
@@ -112,6 +111,7 @@ class Missing(Df_Info):
     """
     Class used to show missing value stats of Pandas Dataframe
     """
+
     def __init__(self, df, type="columns"):
         """
         Initializes class with option to select column or row.
@@ -142,7 +142,8 @@ class Missing(Df_Info):
 class Stats(Df_Info):
     """
     Class used to store min, max, and mean values of Pandas Dataframe
-    """   
+    """
+
     def __init__(self, df, type="columns"):
         """
         Initializes class with option to select column or row.
