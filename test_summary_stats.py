@@ -27,6 +27,7 @@ class TestSummaryStats(unittest.TestCase):
         self.assertEqual(missing_summary(self.df, type="rows").shape, (20, 2))
         self.assertEqual(missing_summary(self.df).sum().sum(), 0)
         self.assertEqual(missing_summary(self.df2).loc[:, "count_missing"].sum(), 1)
+        self.assertIsNone(missing_summary(123))
 
     def test_stats_summary(self):
         self.assertIsInstance(stats_summary(self.df), pd.DataFrame)
@@ -39,6 +40,7 @@ class TestSummaryStats(unittest.TestCase):
             (np.array(stats_summary(self.df)["max"]) == self.test_array2).all()
         )
         self.assertEqual(stats_summary(self.df)["mean"].mean(), 49.5)
+        self.assertIsNone(stats_summary(123))
 
     def test_all_summary(self):
         self.assertIsInstance(all_summary(self.df), pd.DataFrame)
@@ -53,6 +55,7 @@ class TestSummaryStats(unittest.TestCase):
             (np.array(all_summary(self.df)["max"]) == self.test_array2).all()
         )
         self.assertEqual(stats_summary(self.df)["mean"].mean(), 49.5)
+        self.assertIsNone(all_summary(123))
 
     def test_simple_summary(self):
         test_array3 = np.array([99.0, 0.0, 49.5, 20.0, 5.0, 0.0])
@@ -63,6 +66,7 @@ class TestSummaryStats(unittest.TestCase):
         self.assertTrue(
             (simple_summary(self.df2).values.flatten() == test_array4).all()
         )
+        self.assertIsNone(simple_summary(123))
 
 
 if __name__ == "__main__":
