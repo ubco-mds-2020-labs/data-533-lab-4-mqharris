@@ -22,5 +22,5 @@ jobs:
         pip install pandas numpy matplotlib seaborn scikit-learn coverage  
     - name: coverage script
       run: |
-        python coverage run tests.py
-        python coverage report
+        python -m coverage run tests.py
+        python -m coverage report
