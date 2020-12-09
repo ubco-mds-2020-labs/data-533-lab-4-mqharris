@@ -37,8 +37,6 @@ class TestDfInfo(unittest.TestCase):
         self.assertEqual(self.i1.columns, 5)
         self.assertFalse(hasattr(Df_Info(123), "df"))
         self.assertFalse(hasattr(Df_Info(self.df, type="wrong"), "df"))
-        # self.assertRaises(PandasInputError, Df_Info, 123)
-        # self.assertRaises(OptionInputError, Df_Info, self.df, type="wrong")
 
     def test_total_max(self):
         self.assertEqual(self.i1.total_max(), 99)
@@ -72,6 +70,7 @@ class TestMissing(unittest.TestCase):
         self.assertEqual(self.m1.count_missing.sum(), 0)
         self.assertEqual(self.m2.count_missing.sum(), 1)
         self.assertEqual(self.m1.percent_missing.sum(), 0)
+        self.assertFalse(hasattr(Missing(123), "df"))
 
 
 class TestStats(unittest.TestCase):
@@ -93,6 +92,7 @@ class TestStats(unittest.TestCase):
         self.assertEqual(self.s1.sub_min.min(), 0)
         self.assertEqual(self.s1.sub_mean.mean(), 49.5)
         self.assertEqual(self.s2.sub_mean.mean(), 50.0)
+        self.assertFalse(hasattr(Stats(123), "df"))
 
 
 if __name__ == "__main__":

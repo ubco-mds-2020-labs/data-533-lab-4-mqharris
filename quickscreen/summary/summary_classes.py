@@ -139,6 +139,12 @@ class Missing(Df_Info):
         >>> Missing(pd.DataFrame(df), "rows")
         """
         Df_Info.__init__(self, df, type)
+        try:
+            if not hasattr(self, "df"):
+                raise Exception
+        except:
+            return
+
         if self.type == "columns":
             self.count_missing = df.isnull().sum()
             self.percent_missing = self.count_missing / self.columns
@@ -171,6 +177,12 @@ class Stats(Df_Info):
         >>> Stats(pd.DataFrame(df), "rows")
         """
         Df_Info.__init__(self, df, type)
+        try:
+            if not hasattr(self, "df"):
+                raise Exception
+        except:
+            return
+
         if self.type == "columns":
             self.sub_max = df.max(numeric_only=True)
             self.sub_min = df.min(numeric_only=True)
