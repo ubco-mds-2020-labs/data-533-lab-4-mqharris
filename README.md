@@ -1,3 +1,5 @@
+![Python package](https://github.com/mqharris/533_lab2/workflows/Python%20package/badge.svg)
+
 # 533 lab2
 Group: Nathan Smith, Mitch Harris, Ryan Koenig
 
