@@ -3,9 +3,8 @@ import pandas as pd
 import numpy as np
 
 
-from quickscreen.summary.summary_classes import Df_Info
-from quickscreen.summary.summary_classes import Missing
-from quickscreen.summary.summary_classes import Stats
+from quickscreen.summary.summary_classes import Df_Info, Missing, Stats
+from quickscreen.summary.summary_classes import PandasInputError, OptionInputError
 
 
 class TestDfInfo(unittest.TestCase):
@@ -14,6 +13,7 @@ class TestDfInfo(unittest.TestCase):
         cls.df = pd.DataFrame(np.arange(100).reshape(20, 5))
         cls.df2 = cls.df.copy()
         cls.df2.iloc[0, 0] = np.nan
+        cls.df3 = pd.DataFrame(np.full(shape=(20, 5), fill_value="a"))
         print("SetUpClass")
 
     @classmethod
@@ -24,6 +24,7 @@ class TestDfInfo(unittest.TestCase):
         print("SetUp")
         self.i1 = Df_Info(self.df)
         self.i2 = Df_Info(self.df2)
+        self.i3 = Df_Info(self.df3)
 
     def tearDown(self):
         print("TearDown")
@@ -33,6 +34,11 @@ class TestDfInfo(unittest.TestCase):
         self.assertEqual(self.i1.type, "columns")
         self.assertEqual(self.i1.rows, 20)
         self.assertEqual(self.i1.columns, 5)
+        self.assertEqual(self.i1.columns, 5)
+        self.assertFalse(hasattr(Df_Info(123), "df"))
+        self.assertFalse(hasattr(Df_Info(self.df, type="wrong"), "df"))
+        # self.assertRaises(PandasInputError, Df_Info, 123)
+        # self.assertRaises(OptionInputError, Df_Info, self.df, type="wrong")
 
     def test_total_max(self):
         self.assertEqual(self.i1.total_max(), 99)
@@ -45,6 +51,7 @@ class TestDfInfo(unittest.TestCase):
     def test_total_mean(self):
         self.assertEqual(self.i1.total_mean(), 49.5)
         self.assertEqual(self.i2.total_mean(), 50.0)
+        self.assertIs(self.i3.total_mean(), np.nan)
 
 
 class TestMissing(unittest.TestCase):

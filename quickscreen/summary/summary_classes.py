@@ -3,6 +3,22 @@ import pandas as pd
 import numpy as np
 
 
+class PandasInputError(Exception):
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return repr(self)
+
+
+class OptionInputError(Exception):
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return repr(self)
+
+
 class Df_Info:
     """
     Dataframe class
@@ -26,14 +42,19 @@ class Df_Info:
         --------
         >>> Df_Info(pd.DataFrame(df), "rows")
         """
-        if not isinstance(df, pd.DataFrame):
-            raise Exception("Input must be a pandas DataFrame")
-        if not (type in ("columns", "rows")):
-            raise Exception("choose another type option either: rows or columns")
-        self.df = df
-        self.type = type
-        self.rows = self.df.shape[0]
-        self.columns = self.df.shape[1]
+        try:
+            if not isinstance(df, pd.DataFrame):
+                raise PandasInputError()
+            if not (type in ("columns", "rows")):
+                raise OptionInputError()
+            self.df = df
+            self.type = type
+            self.rows = self.df.shape[0]
+            self.columns = self.df.shape[1]
+        except PandasInputError as ex:
+            print(ex, "Input must be a pandas DataFrame")
+        except OptionInputError as ex:
+            print(ex, "choose another type option either: rows or columns")
 
     def total_max(self):
         """
@@ -46,13 +67,8 @@ class Df_Info:
         Returns
         -------
         float
-        or
-        Null value
         """
-        try:
-            return self.df.max().max()
-        except:
-            return np.nan
+        return self.df.max().max()
 
     def total_min(self):
         """
@@ -65,13 +81,8 @@ class Df_Info:
         Returns
         -------
         float
-        or
-        Null value
         """
-        try:
-            return self.df.min().min()
-        except:
-            return np.nan
+        return self.df.min().min()
 
     def total_mean(self):
         """
@@ -87,10 +98,7 @@ class Df_Info:
         or
         Null value
         """
-        try:
-            return self.df.mean(numeric_only=True).mean()
-        except:
-            return np.nan
+        return self.df.mean(numeric_only=True).mean()
 
     def total_missing(self):
         """
