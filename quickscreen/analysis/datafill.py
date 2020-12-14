@@ -29,7 +29,7 @@ class DataEdit:
             assert isinstance(self.data, pd.core.frame.DataFrame)
         except:
             print("Not a Pandas data frame.")
-            return
+            self.data= None
 
     def display(self):
         """
@@ -90,7 +90,7 @@ class DataEdit:
         >>> DataEdit(df1) + df2
         """
         try:
-            assert isinstance(other, pd.core.frame.DataFrame)
+            assert isinstance(other, pd.DataFrame)
             return DataEdit(self.data.append(other, ignore_index=True))
         except:
             print("Not a Pandas data frame.")
@@ -115,15 +115,16 @@ class DataEdit:
         >>> difference = DataEdit(df1) - df2
         """
         try:
-            assert isinstance(other, pd.core.frame.DataFrame)
+            assert isinstance(other, pd.DataFrame)
+            try:
+                common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
+            except:
+                common = self.data
+            return DataEdit(common)
         except:
             print("Not a Pandas data frame.")
             return
-        try:
-            common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
-        except:
-            common = self.data
-        return DataEdit(common)
+
 
     def rm_duplicates(self):
         """

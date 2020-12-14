@@ -9,6 +9,7 @@ class TestDataEdit(unittest.TestCase):
         cls.db1 = pd.DataFrame(np.arange(12).reshape(3,4))
         cls.db2 = pd.DataFrame(np.array([np.arange(3,7),np.arange(4,8),np.arange(3,7)]))
         cls.db3 = pd.DataFrame(np.array([[0,1,np.nan,4],np.arange(4,8),np.arange(4,8)]))
+        cls.db4 = pd.DataFrame(np.arange(5,17).reshape(3,4))
         
 
     @classmethod
@@ -22,15 +23,13 @@ class TestDataEdit(unittest.TestCase):
         self.data1 = daf.DataEdit(self.db1)
         self.data2 = self.db2
         self.data3 = daf.DataEdit(self.db3)
-        self.data4 = 'error'
+        self.data4 = self.db4
         
     def tearDown(self):
         del self.data1
         del self.data2
         del self.data3
-
-    def test__init__(self):
-        self.assertIsNone(daf.DataEdit(self.data4),"Fails to detect not Pandas DataFrame")
+        del self.data4
 
     def test_display(self):
         self.assertIsInstance(self.data1.display(),pd.DataFrame,'Not a Pandas DataFrame')
@@ -43,12 +42,13 @@ class TestDataEdit(unittest.TestCase):
     
     def test_add(self):
         self.assertTrue((self.data1+self.data2).display().equals(pd.DataFrame(np.array([np.arange(4),np.arange(4,8),np.arange(8,12),np.arange(3,7),np.arange(4,8),np.arange(3,7)]))),'Is not Equal')
-        self.assertIsNone(self.data1+self.data4, 'Not a Pandas Dataframe')
+        self.assertIsNone(self.data1+'error', 'Not a Pandas Dataframe')
 
 
     def test_sub(self):
         self.assertTrue((self.data1-self.data2).display().equals(pd.DataFrame(np.array([np.arange(4),np.arange(8,12)]),index=[0,2]).astype('int64')), 'Is not equal')
-        self.assertIsNone(self.data1-self.data4, 'Not a Pandas Dataframe')
+        self.assertTrue((self.data1-self.data4).display().equals(pd.DataFrame(np.arange(12).reshape(3,4)).astype('int64')), 'Is not equal')
+        self.assertIsNone(self.data1-'error', 'Not a Pandas Dataframe')
     
     def test_remove_duplicates(self):
         self.assertTrue(self.data3.rm_duplicates().display().equals(pd.DataFrame(np.array([[0,1,np.nan,4],np.arange(4,8)]))),'Did not remove duplicates')
