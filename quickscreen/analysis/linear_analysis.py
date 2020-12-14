@@ -59,12 +59,19 @@ class Lm(dfl.DataEdit):
         """
 
         try:
+            assert (isinstance(estimator, int) or estimator in self.data)
             x = self.data[estimator].to_numpy().reshape(-1,1)
-            y = self.data[predictor].to_numpy().reshape(-1,1)
-            assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
-            assert (isinstance(predictor, int) or predictor in self.data), "Please enter an integer or the name of a column for the predictor" 
         except:
+            print("Please enter an integer or the name of a column for the estimator")
             return
+            
+        try:
+            assert (isinstance(predictor, int) or predictor in self.data)
+            y = self.data[predictor].to_numpy().reshape(-1,1)
+        except:
+            print("Please enter an integer or the name of a column for the predictor")
+            return
+            
         l_regressor = LinearRegression()
         l_regressor.fit(x,y)
         prediction = l_regressor.predict(x)
@@ -93,11 +100,17 @@ class Lm(dfl.DataEdit):
         >>> lm.single_linear_plot("column_name_for_y", "column_name_for_x")
         """
         try:
+            assert (isinstance(estimator, int) or estimator in self.data)
             x = self.data[estimator].to_numpy().reshape(-1,1)
-            y = self.data[predictor].to_numpy().reshape(-1,1)
-            assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
-            assert (isinstance(predictor, int) or predictor in self.data), "Please enter an integer or the name of a column for the predictor" 
         except:
+            print("Please enter an integer or the name of a column for the estimator")
+            return
+            
+        try:
+            assert (isinstance(predictor, int) or predictor in self.data)
+            y = self.data[predictor].to_numpy().reshape(-1,1)
+        except:
+            print("Please enter an integer or the name of a column for the predictor")
             return
 
         prediction = self.single_linear(predictor, estimator)
@@ -132,11 +145,17 @@ class Lm(dfl.DataEdit):
         >>> lm.single_linear_eqn("horsepower", "enginesize")
         """
         try:
+            assert (isinstance(estimator, int) or estimator in self.data)
             x = self.data[estimator].to_numpy().reshape(-1,1)
-            y = self.data[predictor].to_numpy().reshape(-1,1)
-            assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
-            assert (isinstance(predictor, int) or predictor in self.data), "Please enter an integer or the name of a column for the predictor" 
         except:
+            print("Please enter an integer or the name of a column for the estimator")
+            return
+
+        try:
+            assert (isinstance(predictor, int) or predictor in self.data)
+            y = self.data[predictor].to_numpy().reshape(-1,1)
+        except:
+            print("Please enter an integer or the name of a column for the predictor")
             return
 
         l_regressor = LinearRegression()
