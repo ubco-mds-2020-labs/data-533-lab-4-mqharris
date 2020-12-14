@@ -24,12 +24,9 @@ class DataEdit:
         --------
         >>> DataEdit(pd.Dataframe(data))
         """
-        try:
-            self.data = data
-            assert isinstance(self.data, pd.core.frame.DataFrame)
-        except:
-            print("Not a Pandas data frame.")
-            self.data= None
+        self.data = data
+        assert isinstance(self.data, pd.core.frame.DataFrame), print("Not a Pandas data frame.")
+
 
     def display(self):
         """
@@ -44,11 +41,9 @@ class DataEdit:
         pandas.Dataframe
             class's data
         """
-        try:
-            return self.data
-        except:
-            print('Can not display data')
-            return
+        return self.data
+
+
 
     def columntype(self, column):
         """
