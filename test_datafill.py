@@ -52,7 +52,6 @@ class TestDataEdit(unittest.TestCase):
     
     def test_remove_duplicates(self):
         self.assertTrue(self.data3.rm_duplicates().display().equals(pd.DataFrame(np.array([[0,1,np.nan,4],np.arange(4,8)]))),'Did not remove duplicates')
-        self.assertIsNone(self.)
  
     def test_remove_nan(self):
         self.assertTrue(self.data3.rm_nan().display().equals(pd.DataFrame([np.arange(4,8),np.arange(4,8)],index=[1,2]).astype('float64')), 'Did not remove NaN')
