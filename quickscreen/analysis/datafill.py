@@ -26,8 +26,9 @@ class DataEdit:
         """
         try:
             self.data = data
-            assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
+            assert isinstance(self.data, pd.core.frame.DataFrame)
         except:
+            print("Not a Pandas data frame.")
             return
 
     def display(self):
@@ -64,9 +65,10 @@ class DataEdit:
             dtype of column
         """
         try:
-            assert (isinstance(column, int) or column in self.data), "Please enter an integer or the name of a column"
+            assert (isinstance(column, int) or column in self.data)
             return self.data.dtypes[column]
         except:
+            print("Please enter an integer or the name of a column")
             return
 
     def __add__(self, other):
@@ -88,9 +90,10 @@ class DataEdit:
         >>> DataEdit(df1) + df2
         """
         try:
-            assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
+            assert isinstance(other, pd.core.frame.DataFrame)
             return DataEdit(self.data.append(other, ignore_index=True))
         except:
+            print("Not a Pandas data frame.")
             return
             
     def __sub__(self, other):
@@ -112,8 +115,9 @@ class DataEdit:
         >>> difference = DataEdit(df1) - df2
         """
         try:
-            assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
+            assert isinstance(other, pd.core.frame.DataFrame)
         except:
+            print("Not a Pandas data frame.")
             return
         try:
             common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
@@ -138,11 +142,9 @@ class DataEdit:
         --------
         >>> DataEdit(df).rm_duplicates()
         """
-        try:
-            return DataEdit(self.data.drop_duplicates())
-        except:
-            print('Could not remove duplicates')
-            return
+        
+        return DataEdit(self.data.drop_duplicates())
+
         
     def rm_nan(self):
         """
@@ -162,11 +164,9 @@ class DataEdit:
         --------
         >>> DataEdit(df1).rm_nan()
         """
-        try:
-            return DataEdit(self.data.dropna(axis=0))  
-        except:
-            print('Could not remove NaN values')
-            return
+
+        return DataEdit(self.data.dropna(axis=0))  
+
 
     def quick_clean(self):
         """
@@ -187,18 +187,5 @@ class DataEdit:
         --------
         >>> DataEdit(df1).quick_clean()
         """
-        try:
-            return DataEdit(self.data.drop_duplicates().dropna(axis=0))
-        except:
-            print('Could not intitate quick clean')
-            return
 
-
-
-
-        
-
-
-
-
-
+        return DataEdit(self.data.drop_duplicates().dropna(axis=0))
