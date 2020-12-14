@@ -35,6 +35,9 @@ class TestDataEdit(unittest.TestCase):
         del self.data4
         del self.data5
 
+    def test_init(self):
+        self.assertIsInstance(self.data1, daf.DataEdit, "Is not a DataEdit object")
+
     def test_display(self):
         self.assertIsInstance(self.data1.display(),pd.DataFrame,'Not a Pandas DataFrame')
         self.assertIsInstance(self.data3.display(),pd.DataFrame, 'Not a Pandas DataFrame')
