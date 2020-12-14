@@ -24,8 +24,11 @@ class DataEdit:
         --------
         >>> DataEdit(pd.Dataframe(data))
         """
-        self.data = data
-        assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
+        try:
+            self.data = data
+            assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
+        except:
+            return
 
     def display(self):
         """
@@ -40,7 +43,11 @@ class DataEdit:
         pandas.Dataframe
             class's data
         """
-        return self.data
+        try:
+            return self.data
+        except:
+            print('Can not display data')
+            return
 
     def columntype(self, column):
         """
@@ -56,8 +63,11 @@ class DataEdit:
         numpy.dtype
             dtype of column
         """
-        assert (isinstance(column, int) or column in self.data), "Please enter an integer or the name of a column"
-        return self.data.dtypes[column]
+        try:
+            assert (isinstance(column, int) or column in self.data), "Please enter an integer or the name of a column"
+            return self.data.dtypes[column]
+        except:
+            return
 
     def __add__(self, other):
         """
@@ -77,9 +87,12 @@ class DataEdit:
         --------
         >>> DataEdit(df1) + df2
         """
-        assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
-        return DataEdit(self.data.append(other, ignore_index=True))
-    
+        try:
+            assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
+            return DataEdit(self.data.append(other, ignore_index=True))
+        except:
+            return
+            
     def __sub__(self, other):
         """
         removes the insersection of the two dataframes
@@ -98,7 +111,10 @@ class DataEdit:
         --------
         >>> difference = DataEdit(df1) - df2
         """
-        assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
+        try:
+            assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
+        except:
+            return
         try:
             common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
         except:
@@ -122,8 +138,12 @@ class DataEdit:
         --------
         >>> DataEdit(df).rm_duplicates()
         """
-        return DataEdit(self.data.drop_duplicates())
-
+        try:
+            return DataEdit(self.data.drop_duplicates())
+        except:
+            print('Could not remove duplicates')
+            return
+        
     def rm_nan(self):
         """
         Removes rows that have na for values
@@ -142,8 +162,12 @@ class DataEdit:
         --------
         >>> DataEdit(df1).rm_nan()
         """
-        return DataEdit(self.data.dropna(axis=0))
-    
+        try:
+            return DataEdit(self.data.dropna(axis=0))  
+        except:
+            print('Could not remove NaN values')
+            return
+
     def quick_clean(self):
         """
         Removes rows that have na for values and rows that are duplicates
@@ -163,7 +187,11 @@ class DataEdit:
         --------
         >>> DataEdit(df1).quick_clean()
         """
-        return DataEdit(self.data.drop_duplicates().dropna(axis=0))
+        try:
+            return DataEdit(self.data.drop_duplicates().dropna(axis=0))
+        except:
+            print('Could not intitate quick clean')
+            return
 
 
 
