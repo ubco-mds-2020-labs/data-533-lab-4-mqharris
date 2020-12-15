@@ -96,7 +96,17 @@ class Plotter:
 
         Parameters
         ----------
+        test_flag : int, optional (default = 0)
+            determines if this method is being tested
+            default is not being tested
+
+        Returns
+        -------
         None
+            Displays plot if test_flag = 0
+        str
+            Returns test string if test_flag != 0
+        
         """
         if self.label_names:
             plt.xlabel(self.label_names[0])
@@ -118,11 +128,15 @@ class Plotter:
         file_name : str, optional (default = None)
             filename for plot
             will use date and time as default filename
-
+        test_flag : int, optional (default = 0)
+            determines if this method is being tested
+            default is not being tested
         Returns
         -------
         None
             Saves plot as .jpg
+        str
+            Returns test string if test_flag != 0
 
         Examples
         --------
