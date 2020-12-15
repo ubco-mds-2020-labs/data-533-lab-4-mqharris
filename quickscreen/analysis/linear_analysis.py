@@ -27,7 +27,11 @@ class Lm(dfl.DataEdit):
         --------
         >>> Lm(pd.Dataframe(data))
         """
-        dfl.DataEdit.__init__(self, data)
+        try:
+            dfl.DataEdit.__init__(self, data)
+            assert isinstance(self.data, pd.core.frame.DataFrame) 
+        except AssertionError:
+            print("Not a Pandas data frame.")
 
     def single_linear(self, predictor, estimator):
         """
@@ -52,10 +56,21 @@ class Lm(dfl.DataEdit):
         >>> lm = Lm(df)
         >>> slr = lm.single_linear("column_name_for_y", "column_name_for_x")
         """
-        assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
-        assert (isinstance(predictor, int) or predictor in self.data), "Please enter an integer or the name of a column for the predictor" 
-        x = self.data[estimator].to_numpy().reshape(-1,1)
-        y = self.data[predictor].to_numpy().reshape(-1,1)
+
+        try:
+            assert (isinstance(estimator, int) or estimator in self.data)
+            x = self.data[estimator].to_numpy().reshape(-1,1)
+        except AssertionError:
+            print("Please enter an integer or the name of a column for the estimator")
+            return
+            
+        try:
+            assert (isinstance(predictor, int) or predictor in self.data)
+            y = self.data[predictor].to_numpy().reshape(-1,1)
+        except AssertionError:
+            print("Please enter an integer or the name of a column for the predictor")
+            return
+            
         l_regressor = LinearRegression()
         l_regressor.fit(x,y)
         prediction = l_regressor.predict(x)
@@ -83,10 +98,20 @@ class Lm(dfl.DataEdit):
         >>> lm = Lm(df)
         >>> lm.single_linear_plot("column_name_for_y", "column_name_for_x")
         """
-        assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
-        assert (isinstance(predictor, int) or predictor in self.data), "Please enter an integer or the name of a column for the predictor" 
-        x = self.data[estimator].to_numpy().reshape(-1,1)
-        y = self.data[predictor].to_numpy().reshape(-1,1)
+        try:
+            assert (isinstance(estimator, int) or estimator in self.data)
+            x = self.data[estimator].to_numpy().reshape(-1,1)
+        except AssertionError:
+            print("Please enter an integer or the name of a column for the estimator")
+            return
+            
+        try:
+            assert (isinstance(predictor, int) or predictor in self.data)
+            y = self.data[predictor].to_numpy().reshape(-1,1)
+        except AssertionError:
+            print("Please enter an integer or the name of a column for the predictor")
+            return
+
         prediction = self.single_linear(predictor, estimator)
 
         plt.scatter(x, y)
@@ -118,10 +143,20 @@ class Lm(dfl.DataEdit):
         >>> lm = Lm(df)
         >>> lm.single_linear_eqn("horsepower", "enginesize")
         """
-        assert (isinstance(estimator, int) or estimator in self.data), "Please enter an integer or the name of a column for the estimator"
-        assert (isinstance(predictor, int) or predictor in self.data), "Please enter an integer or the name of a column for the predictor" 
-        x = self.data[estimator].to_numpy().reshape(-1,1)
-        y = self.data[predictor].to_numpy().reshape(-1,1)
+        try:
+            assert (isinstance(estimator, int) or estimator in self.data)
+            x = self.data[estimator].to_numpy().reshape(-1,1)
+        except AssertionError:
+            print("Please enter an integer or the name of a column for the estimator")
+            return
+
+        try:
+            assert (isinstance(predictor, int) or predictor in self.data)
+            y = self.data[predictor].to_numpy().reshape(-1,1)
+        except AssertionError:
+            print("Please enter an integer or the name of a column for the predictor")
+            return
+
         l_regressor = LinearRegression()
         l_regressor.fit(x,y)
 

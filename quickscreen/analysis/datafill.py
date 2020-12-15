@@ -1,6 +1,26 @@
 #linear.py
 import pandas as pd
 
+class PandaError(Exception):
+
+    def __init__(self):
+        pass 
+
+    def __str__(self):
+        return ("Not a Pandas data frame")
+
+class ColumnId(Exception):
+
+    def __init__(self, type):
+        self.type = type
+
+    def __str__(self):
+        if self.type==1:
+            return ("This column number is out of range.")
+        elif self.type==0:
+            return ("This column name is not in the data frame.")
+
+
 
 class DataEdit:
     """
@@ -25,7 +45,13 @@ class DataEdit:
         >>> DataEdit(pd.Dataframe(data))
         """
         self.data = data
-        assert isinstance(self.data, pd.core.frame.DataFrame), "Not a Pandas data frame."
+        try:
+            if type(self.data)!=pd.DataFrame:
+                raise PandaError()
+        except PandaError as p:
+            print(p)
+        #assert isinstance(self.data, pd.core.frame.DataFrame), print("Not a Pandas data frame.")
+
 
     def display(self):
         """
@@ -42,6 +68,8 @@ class DataEdit:
         """
         return self.data
 
+
+
     def columntype(self, column):
         """
         Gets the data type for the column specified by index or by nane
@@ -56,7 +84,23 @@ class DataEdit:
         numpy.dtype
             dtype of column
         """
-        assert (isinstance(column, int) or column in self.data), "Please enter an integer or the name of a column"
+        try:
+            c=None
+
+            if (column not in self.data):
+                if isinstance(column, int)==True:
+                    if column>=len(self.data.columns):
+                        c=1
+                else:
+                    c=0
+
+            if c in (0,1):
+                raise ColumnId(c)
+
+        except ColumnId as p:
+            print(p)
+            return
+
         return self.data.dtypes[column]
 
     def __add__(self, other):
@@ -77,9 +121,15 @@ class DataEdit:
         --------
         >>> DataEdit(df1) + df2
         """
-        assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
+        try:
+            if type(other)!=pd.DataFrame:
+                raise PandaError()
+        except PandaError as p:
+            print(p)
+            return
+        
         return DataEdit(self.data.append(other, ignore_index=True))
-    
+            
     def __sub__(self, other):
         """
         removes the insersection of the two dataframes
@@ -98,12 +148,19 @@ class DataEdit:
         --------
         >>> difference = DataEdit(df1) - df2
         """
-        assert isinstance(other, pd.core.frame.DataFrame), "Not a Pandas data frame."
+        try:
+            if type(other)!=pd.DataFrame:
+                raise PandaError()
+        except PandaError as p:
+            print(p)
+            return
         try:
             common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
         except:
             common = self.data
         return DataEdit(common)
+
+
 
     def rm_duplicates(self):
         """
@@ -122,8 +179,10 @@ class DataEdit:
         --------
         >>> DataEdit(df).rm_duplicates()
         """
+        
         return DataEdit(self.data.drop_duplicates())
 
+        
     def rm_nan(self):
         """
         Removes rows that have na for values
@@ -142,8 +201,10 @@ class DataEdit:
         --------
         >>> DataEdit(df1).rm_nan()
         """
-        return DataEdit(self.data.dropna(axis=0))
-    
+
+        return DataEdit(self.data.dropna(axis=0))  
+
+
     def quick_clean(self):
         """
         Removes rows that have na for values and rows that are duplicates
@@ -163,14 +224,5 @@ class DataEdit:
         --------
         >>> DataEdit(df1).quick_clean()
         """
+
         return DataEdit(self.data.drop_duplicates().dropna(axis=0))
-
-
-
-
-        
-
-
-
-
-
