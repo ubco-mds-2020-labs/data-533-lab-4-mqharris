@@ -9,6 +9,7 @@ setup(
          "example.ipynb",
          "description.md"
          ]),
+    install_requires=["pandas", "numpy", "matplotlib", "seaborn", "scikit-learn"],
     license='MIT',
     description='A package for exploring data',
     url='https://github.com/mqharris/533_lab2',
