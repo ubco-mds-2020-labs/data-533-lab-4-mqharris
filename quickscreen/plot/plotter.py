@@ -6,6 +6,21 @@ from pandas.api.types import is_numeric_dtype
 import matplotlib.pyplot as plt
 
 
+class LabelError(Exception):
+    def __init__(self, axis):
+        self.axis = axis
+
+    def __str__(self):
+        return repr(self)
+
+class PlatformError(Exception):
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return repr(self)
+
+
 class Plotter:
     """
     Generic plotting class used in the grapher module
@@ -45,7 +60,13 @@ class Plotter:
         title : str
             the plot title
         """
-        self.plot_title = title
+        try:
+            assert isinstance(title, str)
+            self.plot_title = title
+        except AssertionError:
+            print("the add_title method requires a sting input")
+            print("therefore not changing plot's title")
+
 
     def add_label_names(self, x_label, y_label):
         """
@@ -58,7 +79,16 @@ class Plotter:
         y_label : str
             y-axis label
         """
-        self.label_names = (x_label, y_label)
+        try:
+            if not isinstance(x_label, str):
+                raise LabelError("x axis needs to be a string")
+            if not isinstance(y_label, str):
+                raise LabelError("y axis needs to be a string")
+            self.label_names = (x_label, y_label)
+        except LabelError as ex:
+            print(ex)
+            print("therefore not changing plot's title")
+        
 
     def show_plot(self):
         """
@@ -98,17 +128,22 @@ class Plotter:
         """
         # doesnt work on windows
         # untested on linux
-        if platform != "darwin":
-            raise Exception("Can only save plot on MacOS")
-
-        if self.label_names:
-            plt.xlabel(self.label_names[0])
-            plt.ylabel(self.label_names[1])
-        if self.plot_title:
-            plt.title(self.plot_title)
-        if file_name is None:
-            x = datetime.datetime.now()
-            str_date = str(x.date()) +"_"+ str(x.time())
-            file_name = type(self).__name__ + "_" + str_date
-            print(file_name)
-        plt.savefig(file_name + ".jpg")
+        try:
+            if (platform != "darwin"):
+                raise PlatformError()
+        except PlatformError as ex:
+            print(ex)
+            print("Can only save plots on MacOS")
+            print("Therefore not saving")
+        else:
+            if self.label_names:
+                plt.xlabel(self.label_names[0])
+                plt.ylabel(self.label_names[1])
+            if self.plot_title:
+                plt.title(self.plot_title)
+            if file_name is None:
+                x = datetime.datetime.now()
+                str_date = str(x.date()) +"_"+ str(x.time())
+                file_name = type(self).__name__ + "_" + str_date
+                print(file_name)
+            plt.savefig(file_name + ".jpg")
