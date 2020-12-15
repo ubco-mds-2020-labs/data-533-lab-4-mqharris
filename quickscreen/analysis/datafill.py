@@ -126,6 +126,9 @@ class DataEdit:
                 raise PandaError()
         except PandaError as p:
             print(p)
+            return
+        
+        return DataEdit(self.data.append(other, ignore_index=True))
             
     def __sub__(self, other):
         """
@@ -150,6 +153,7 @@ class DataEdit:
                 raise PandaError()
         except PandaError as p:
             print(p)
+            return
         try:
             common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
         except:
