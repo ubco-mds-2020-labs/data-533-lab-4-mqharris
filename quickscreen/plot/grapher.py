@@ -60,7 +60,7 @@ class HistogramPlot(Plotter):
         except AssertionError as ex:
             print(ex)
             print("Must pass column name as a string for the histrograph method")
-
+            return None
 
 
 class ScatterPlot(Plotter):
@@ -120,7 +120,7 @@ class ScatterPlot(Plotter):
             return sp
         except:
             print("column names must passed as strings in the scatter method")
-
+            return None
 
 class ScatterMatrix(Plotter):
     """

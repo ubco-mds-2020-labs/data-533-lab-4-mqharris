@@ -14,8 +14,8 @@ class LabelError(Exception):
         return repr(self)
 
 class PlatformError(Exception):
-    def __init__(self):
-        pass
+    def __init__(self, message):
+        self.message = message
 
     def __str__(self):
         return repr(self)
@@ -90,7 +90,7 @@ class Plotter:
             print("therefore not changing plot's title")
         
 
-    def show_plot(self):
+    def show_plot(self, test_flag=0):
         """
         Function to show plot with title and axis labels
 
@@ -103,9 +103,12 @@ class Plotter:
             plt.ylabel(self.label_names[1])
         if self.plot_title:
             plt.title(self.plot_title)
+        if test_flag != 0:
+            print("testing show_plot")
+            return "test"
         plt.show()
 
-    def save_plot(self, file_name=None):
+    def save_plot(self, file_name=None, test_flag=0):
         """
         Function to save plot as jpg, only on MacOS
         Saves to current working directory
@@ -130,10 +133,9 @@ class Plotter:
         # untested on linux
         try:
             if (platform != "darwin"):
-                raise PlatformError()
+                raise PlatformError("Can only save plots on MacOS")
         except PlatformError as ex:
             print(ex)
-            print("Can only save plots on MacOS")
             print("Therefore not saving")
         else:
             if self.label_names:
@@ -146,4 +148,7 @@ class Plotter:
                 str_date = str(x.date()) +"_"+ str(x.time())
                 file_name = type(self).__name__ + "_" + str_date
                 print(file_name)
+            if test_flag != 0:
+                print("testing save_plot")
+                return "test"
             plt.savefig(file_name + ".jpg")

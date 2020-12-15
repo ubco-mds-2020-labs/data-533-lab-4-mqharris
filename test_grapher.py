@@ -47,6 +47,7 @@ class TestGrapher(unittest.TestCase):
         self.assertEqual(len(list(data_hist[1])), len(bin_data))
         for i in range(0, len(bin_data)):
             self.assertAlmostEqual(bin_data[i], data_hist[1][i])
+        self.assertEqual(self.histogram.histogram(5), None)
         
         # scatter plot
         data_sp = self.scatterplot.scatter("A", "B")[0]
@@ -56,6 +57,7 @@ class TestGrapher(unittest.TestCase):
         expected_y = list(self.df["B"])
         self.assertListEqual(returned_x, expected_x)
         self.assertListEqual(returned_y, expected_y)
+        self.assertEqual(self.scatterplot.scatter(5, 3), None)
 
         # scatter matrix
         expected_axis_0 = (-4.95, 103.95, -4.95, 103.95)
