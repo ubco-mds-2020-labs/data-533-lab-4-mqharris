@@ -6,6 +6,21 @@ from pandas.api.types import is_numeric_dtype
 import matplotlib.pyplot as plt
 
 
+class LabelError(Exception):
+    def __init__(self, axis):
+        self.axis = axis
+
+    def __str__(self):
+        return repr(self)
+
+class PlatformError(Exception):
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return repr(self)
+
+
 class Plotter:
     """
     Generic plotting class used in the grapher module
@@ -45,7 +60,13 @@ class Plotter:
         title : str
             the plot title
         """
-        self.plot_title = title
+        try:
+            assert isinstance(title, str)
+            self.plot_title = title
+        except AssertionError:
+            print("the add_title method requires a sting input")
+            print("therefore not changing plot's title")
+
 
     def add_label_names(self, x_label, y_label):
         """
@@ -58,24 +79,46 @@ class Plotter:
         y_label : str
             y-axis label
         """
-        self.label_names = (x_label, y_label)
+        try:
+            if not isinstance(x_label, str):
+                raise LabelError("x axis needs to be a string")
+            if not isinstance(y_label, str):
+                raise LabelError("y axis needs to be a string")
+            self.label_names = (x_label, y_label)
+        except LabelError as ex:
+            print(ex)
+            print("therefore not changing plot's title")
+        
 
-    def show_plot(self):
+    def show_plot(self, test_flag=0):
         """
         Function to show plot with title and axis labels
 
         Parameters
         ----------
+        test_flag : int, optional (default = 0)
+            determines if this method is being tested
+            default is not being tested
+
+        Returns
+        -------
         None
+            Displays plot if test_flag = 0
+        str
+            Returns test string if test_flag != 0
+        
         """
         if self.label_names:
             plt.xlabel(self.label_names[0])
             plt.ylabel(self.label_names[1])
         if self.plot_title:
             plt.title(self.plot_title)
+        if test_flag != 0:
+            print("testing show_plot")
+            return "test"
         plt.show()
 
-    def save_plot(self, file_name=None):
+    def save_plot(self, file_name=None, test_flag=0):
         """
         Function to save plot as jpg, only on MacOS
         Saves to current working directory
@@ -85,11 +128,15 @@ class Plotter:
         file_name : str, optional (default = None)
             filename for plot
             will use date and time as default filename
-
+        test_flag : int, optional (default = 0)
+            determines if this method is being tested
+            default is not being tested
         Returns
         -------
         None
             Saves plot as .jpg
+        str
+            Returns test string if test_flag != 0
 
         Examples
         --------
@@ -98,17 +145,24 @@ class Plotter:
         """
         # doesnt work on windows
         # untested on linux
-        if platform != "darwin":
-            raise Exception("Can only save plot on MacOS")
-
-        if self.label_names:
-            plt.xlabel(self.label_names[0])
-            plt.ylabel(self.label_names[1])
-        if self.plot_title:
-            plt.title(self.plot_title)
-        if file_name is None:
-            x = datetime.datetime.now()
-            str_date = str(x.date()) +"_"+ str(x.time())
-            file_name = type(self).__name__ + "_" + str_date
-            print(file_name)
-        plt.savefig(file_name + ".jpg")
+        try:
+            if (platform != "darwin"):
+                raise PlatformError("Can only save plots on MacOS")
+        except PlatformError as ex:
+            print(ex)
+            print("Therefore not saving")
+        else:
+            if self.label_names:
+                plt.xlabel(self.label_names[0])
+                plt.ylabel(self.label_names[1])
+            if self.plot_title:
+                plt.title(self.plot_title)
+            if file_name is None:
+                x = datetime.datetime.now()
+                str_date = str(x.date()) +"_"+ str(x.time())
+                file_name = type(self).__name__ + "_" + str_date
+                print(file_name)
+            if test_flag != 0:
+                print("testing save_plot")
+                return "test"
+            plt.savefig(file_name + ".jpg")

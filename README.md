@@ -11,4 +11,6 @@ The following documentation is also provided:
 - *description.md* provides an overview of the package including its subpackages and module classes and functions
 - *example.ipynb* provides a demo file of the package usage
     - the demo file uses data availble in the CarPrice.csv file
+
+Refer to `test_coverage_report.png` for the test coverage report.
     
