@@ -30,9 +30,8 @@ class Lm(dfl.DataEdit):
         try:
             dfl.DataEdit.__init__(self, data)
             assert isinstance(self.data, pd.core.frame.DataFrame) 
-        except:
+        except AssertionError:
             print("Not a Pandas data frame.")
-            return
 
     def single_linear(self, predictor, estimator):
         """
@@ -61,14 +60,14 @@ class Lm(dfl.DataEdit):
         try:
             assert (isinstance(estimator, int) or estimator in self.data)
             x = self.data[estimator].to_numpy().reshape(-1,1)
-        except:
+        except AssertionError:
             print("Please enter an integer or the name of a column for the estimator")
             return
             
         try:
             assert (isinstance(predictor, int) or predictor in self.data)
             y = self.data[predictor].to_numpy().reshape(-1,1)
-        except:
+        except AssertionError:
             print("Please enter an integer or the name of a column for the predictor")
             return
             
@@ -102,14 +101,14 @@ class Lm(dfl.DataEdit):
         try:
             assert (isinstance(estimator, int) or estimator in self.data)
             x = self.data[estimator].to_numpy().reshape(-1,1)
-        except:
+        except AssertionError:
             print("Please enter an integer or the name of a column for the estimator")
             return
             
         try:
             assert (isinstance(predictor, int) or predictor in self.data)
             y = self.data[predictor].to_numpy().reshape(-1,1)
-        except:
+        except AssertionError:
             print("Please enter an integer or the name of a column for the predictor")
             return
 
@@ -147,14 +146,14 @@ class Lm(dfl.DataEdit):
         try:
             assert (isinstance(estimator, int) or estimator in self.data)
             x = self.data[estimator].to_numpy().reshape(-1,1)
-        except:
+        except AssertionError:
             print("Please enter an integer or the name of a column for the estimator")
             return
 
         try:
             assert (isinstance(predictor, int) or predictor in self.data)
             y = self.data[predictor].to_numpy().reshape(-1,1)
-        except:
+        except AssertionError:
             print("Please enter an integer or the name of a column for the predictor")
             return
 

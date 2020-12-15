@@ -1,6 +1,26 @@
 #linear.py
 import pandas as pd
 
+class PandaError(Exception):
+
+    def __init__(self):
+        pass 
+
+    def __str__(self):
+        return ("Not a Pandas data frame")
+
+class ColumnId(Exception):
+
+    def __init__(self, type):
+        self.type = type
+
+    def __str__(self):
+        if self.type==1:
+            return ("This column number is out of range.")
+        elif self.type==0:
+            return ("This column name is not in the data frame.")
+
+
 
 class DataEdit:
     """
@@ -25,7 +45,12 @@ class DataEdit:
         >>> DataEdit(pd.Dataframe(data))
         """
         self.data = data
-        assert isinstance(self.data, pd.core.frame.DataFrame), print("Not a Pandas data frame.")
+        try:
+            if type(self.data)!=pd.DataFrame:
+                raise PandaError()
+        except PandaError as p:
+            print(p)
+        #assert isinstance(self.data, pd.core.frame.DataFrame), print("Not a Pandas data frame.")
 
 
     def display(self):
@@ -60,11 +85,23 @@ class DataEdit:
             dtype of column
         """
         try:
-            assert (isinstance(column, int) or column in self.data)
-            return self.data.dtypes[column]
-        except:
-            print("Please enter an integer or the name of a column")
+            c=None
+
+            if (column not in self.data):
+                if isinstance(column, int)==True:
+                    if column>=len(self.data.columns):
+                        c=1
+                else:
+                    c=0
+
+            if c in (0,1):
+                raise ColumnId(c)
+
+        except ColumnId as p:
+            print(p)
             return
+
+        return self.data.dtypes[column]
 
     def __add__(self, other):
         """
@@ -85,11 +122,10 @@ class DataEdit:
         >>> DataEdit(df1) + df2
         """
         try:
-            assert isinstance(other, pd.DataFrame)
-            return DataEdit(self.data.append(other, ignore_index=True))
-        except:
-            print("Not a Pandas data frame.")
-            return
+            if type(other)!=pd.DataFrame:
+                raise PandaError()
+        except PandaError as p:
+            print(p)
             
     def __sub__(self, other):
         """
@@ -110,15 +146,16 @@ class DataEdit:
         >>> difference = DataEdit(df1) - df2
         """
         try:
-            assert isinstance(other, pd.DataFrame)
-            try:
-                common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
-            except:
-                common = self.data
-            return DataEdit(common)
+            if type(other)!=pd.DataFrame:
+                raise PandaError()
+        except PandaError as p:
+            print(p)
+        try:
+            common = self.data.merge(other, indicator='i', how='outer').query('i=="left_only"').drop('i',1)
         except:
-            print("Not a Pandas data frame.")
-            return
+            common = self.data
+        return DataEdit(common)
+
 
 
     def rm_duplicates(self):
