@@ -118,7 +118,7 @@ class ScatterPlot(Plotter):
             c2 = self.data[col2]
             sp = plt.plot(c1, c2, "o")
             return sp
-        except:
+        except AssertionError:
             print("column names must passed as strings in the scatter method")
             return None
 
