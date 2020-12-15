@@ -52,9 +52,15 @@ class HistogramPlot(Plotter):
         >>> working_hist = HistogramPlot(pd.DataFrame(data, columns = ['col1', 'col2']))
         >>> working_hist.histogram('col1', bins=20)
         """
-        c1 = self.data[col_name]
-        graph = plt.hist(c1, bins=bins)
-        return graph
+        try: 
+            assert isinstance(col_name, str)
+            c1 = self.data[col_name]
+            graph = plt.hist(c1, bins=bins)
+            return graph
+        except AssertionError as ex:
+            print(ex)
+            print("Must pass column name as a string for the histrograph method")
+
 
 
 class ScatterPlot(Plotter):
@@ -105,10 +111,15 @@ class ScatterPlot(Plotter):
         >>> working_scatter = HistogramPlot(pd.DataFrame(data, columns = ['col1', 'col2']))
         >>> working_scatter.ScatterPlot('col1', 'col2')
         """
-        c1 = self.data[col1]
-        c2 = self.data[col2]
-        sp = plt.plot(c1, c2, "o")
-        return sp
+        try:
+            assert isinstance(col1, str)
+            assert isinstance(col2, str)
+            c1 = self.data[col1]
+            c2 = self.data[col2]
+            sp = plt.plot(c1, c2, "o")
+            return sp
+        except:
+            print("column names must passed as strings in the scatter method")
 
 
 class ScatterMatrix(Plotter):
