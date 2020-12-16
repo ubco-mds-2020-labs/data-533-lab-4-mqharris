@@ -1,3 +1,5 @@
+![Python package](https://github.com/mqharris/533_lab2/workflows/Python%20package/badge.svg)
+
 # 533 lab2
 Group: Nathan Smith, Mitch Harris, Ryan Koenig
 
@@ -9,4 +11,15 @@ The following documentation is also provided:
 - *description.md* provides an overview of the package including its subpackages and module classes and functions
 - *example.ipynb* provides a demo file of the package usage
     - the demo file uses data availble in the CarPrice.csv file
-    
+
+Refer to `test_coverage_report.png` for the test coverage report.
+
+PyPI link:
+`https://pypi.org/project/quickscreen/`
+
+Install with:
+`pip install quickscreen`
+
+Accessing the package example:
+`from quickscreen.plot.plotter import Plotter`
+`p = Plotter(None)`

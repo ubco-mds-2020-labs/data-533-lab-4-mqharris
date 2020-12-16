@@ -32,6 +32,8 @@ class TestLm(unittest.TestCase):
         self.assertTrue(np.ndarray.all(self.data1.single_linear(1,0).reshape(1,3)[0].round()==np.array([0,1,2])),'The output does not match')
         self.assertTrue(np.ndarray.all(self.data2.single_linear(1,0).reshape(1,3)[0].round()==np.array([1,3,5])),'The output does not match')
         self.assertTrue(np.ndarray.all(self.data3.single_linear(1,0).reshape(1,3)[0].round(2)==np.array([3,2.5,2])),'The output does not match')
+        self.assertIsNone(self.data3.single_linear(1,'error'), "Does not catch Pandas Dataframe error in estimator")
+        self.assertIsNone(self.data3.single_linear('error',0), "Does not catch Pandas Dataframe error in predictor")
 
     def test_single_linear_eqn(self):
         self.assertEqual(self.data1.single_linear_eqn(1,0)['Coefficient'],1.0,'The coefficient is wrong')
@@ -40,6 +42,12 @@ class TestLm(unittest.TestCase):
         self.assertEqual(self.data2.single_linear_eqn(1,0)['Intercept'],1.0,'The intercept is wrong')
         self.assertEqual(self.data3.single_linear_eqn(1,0)['Coefficient'],-0.5,'The coefficient is wrong')
         self.assertEqual(self.data3.single_linear_eqn(1,0)['Intercept'],3.0,'The intercept is wrong')
+        self.assertIsNone(self.data3.single_linear_eqn(1,'error'), "Does not catch Pandas Dataframe error in estimator")
+        self.assertIsNone(self.data3.single_linear_eqn('error',0), "Does not catch Pandas Dataframe error in predictor")
+
+    def test_single_linear_plot(self):
+        self.assertIsNone(self.data3.single_linear_plot(1,'error'), "Does not catch Pandas Dataframe error in estimator")
+        self.assertIsNone(self.data3.single_linear_plot('error',0), "Does not catch Pandas Dataframe error in predictor")
 
 if __name__ == "__main__":
     unittest.main(argv=[""], verbosity=2, exit=False)

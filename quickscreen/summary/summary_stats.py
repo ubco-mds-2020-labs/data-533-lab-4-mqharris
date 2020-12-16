@@ -23,7 +23,14 @@ def missing_summary(df, type="columns"):
     --------
     >>> missing_summary(pd.DataFrame(df), "rows")
     """
-    data = Missing(df, type)
+    try:
+        data = Missing(df, type)
+        if not hasattr(data, "df"):
+            raise Exception
+    except:
+        print("Can not complete function")
+        return
+
     df_out = {
         "count_missing": data.count_missing,
         "percent_missing": data.percent_missing,
@@ -51,7 +58,14 @@ def stats_summary(df, type="columns"):
     --------
     >>> stats_summary(pd.DataFrame(df), "rows")
     """
-    data = Stats(df, type)
+    try:
+        data = Stats(df, type)
+        if not hasattr(data, "df"):
+            raise Exception
+    except:
+        print("Can not complete function")
+        return
+
     df_out = {"max": data.sub_max, "min": data.sub_min, "mean": data.sub_mean}
 
     return pd.concat(df_out, axis=1)
@@ -76,7 +90,15 @@ def all_summary(df, type="columns"):
     --------
     >>> Df_Info(pd.DataFrame(df), "rows")
     """
-    return pd.concat([stats_summary(df, type), missing_summary(df, type)], axis=1)
+    try:
+        data1 = stats_summary(df, type)
+        if data1 is None:
+            raise Exception
+    except:
+        return
+
+    data2 = missing_summary(df, type)
+    return pd.concat([data1, data2], axis=1)
 
 
 def simple_summary(df):
@@ -98,7 +120,14 @@ def simple_summary(df):
     --------
     >>> Df_Info(pd.DataFrame(df), "rows")
     """
-    data = Df_Info(df)
+    try:
+        data = Df_Info(df)
+        if not hasattr(data, "df"):
+            raise Exception
+    except:
+        print("Can not complete function")
+        return
+
     output_labels = [
         "df_max",
         "df_min",
