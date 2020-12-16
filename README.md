@@ -13,4 +13,13 @@ The following documentation is also provided:
     - the demo file uses data availble in the CarPrice.csv file
 
 Refer to `test_coverage_report.png` for the test coverage report.
-    
+
+PyPI link:
+`https://pypi.org/project/quickscreen/`
+
+Install with:
+`pip install quickscreen`
+
+Accessing the package example:
+`from quickscreen.plot.plotter import Plotter`
+`p = Plotter(None)`
