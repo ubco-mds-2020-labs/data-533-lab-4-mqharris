@@ -21,5 +21,5 @@ Install with:
 `pip install quickscreen`
 
 Accessing the package example:
-`from quickscreen.plot.plotter import Plotter`
+`from quickscreen.plot.plotter import Plotter`  
 `p = Plotter(None)`
