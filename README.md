@@ -23,3 +23,9 @@ Install with:
 Accessing the package example:  
 `from quickscreen.plot.plotter import Plotter`  
 `p = Plotter(None)`
+
+If there are any issues, please either:   
+Refer to the original repo `https://github.com/mqharris/533_lab2` (Where we did the original work, and then mirrored it here).  
+Message `Mitch Harris` on slack.  
+Email me at `mitchharris@live.ca`.  
+
