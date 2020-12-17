@@ -20,6 +20,6 @@ PyPI link:
 Install with:
 `pip install quickscreen`
 
-Accessing the package example:
+Accessing the package example:  
 `from quickscreen.plot.plotter import Plotter`  
 `p = Plotter(None)`
